@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "myariadamplifynext",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authmyariadamplifynext32654ec0",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
