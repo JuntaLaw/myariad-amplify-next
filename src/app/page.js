@@ -1,18 +1,15 @@
-import { Amplify } from 'aws-amplify';
+import Sidebar from "../components/navi/Sidebar"; 
+import NotebookHome from "@/components/ui/NotePage/NotebookHome";
 
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import config from './../../src/amplifyconfiguration.json'; 
 
-Amplify.configure(config);
-
-function App({ signOut, user }) {
+export default function Home() {
   return (
-    <>
-      <h1>Hello {user.username}</h1>
-      <button onClick={signOut}>Sign out</button>
-    </>
+    <main 
+    className="flex min-h-screen flex-row"
+    > 
+    <Sidebar/>
+    <NotebookHome/>
+
+    </main>
   );
 }
-
-export default withAuthenticator(App);
