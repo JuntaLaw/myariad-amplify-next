@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+:root { 
+    background-color: rgb(147, 51, 234);
+    background-image: radial-gradient(at 89% 66%, rgb(244, 114, 182) 0, transparent 74%), radial-gradient(at 25% 66%, rgb(186, 230, 253) 0, transparent 74%), radial-gradient(at 30% 46%, rgb(254, 226, 226) 0, transparent 22%), radial-gradient(at 59% 33%, rgb(236, 252, 203) 0, transparent 67%), radial-gradient(at 63% 42%, rgb(249, 168, 212) 0, transparent 88%), radial-gradient(at 28% 67%, rgb(77, 124, 15) 0, transparent 67%); 
+    --btn-background: 200 10% 91%;
+    --btn-background-hover: 200 10% 89%;
+    --foreground: 200 50% 3%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,4 +32,66 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+/* タイポグラフィーのスタイル */
+h1 {
+  @apply text-4xl font-bold mb-4;
+}
+
+h2 {
+  @apply text-3xl font-bold mb-3;
+}
+
+h3 {
+  @apply text-2xl font-bold mb-2;
+}
+
+h4 {
+  @apply text-xl font-bold mb-2;
+}
+
+h5 {
+  @apply text-lg font-bold mb-1;
+}
+
+h6 {
+  @apply text-base font-bold mb-1;
+}
+
+p {
+  @apply text-base mb-4;
+}
+
+ul, ol {
+  @apply mb-4 pl-8;
+}
+
+ul {
+  @apply list-disc;
+}
+
+ol {
+  @apply list-decimal;
+}
+
+li {
+  @apply mb-2;
+}
+
+a {
+  @apply text-blue-600 underline;
+}
+
+blockquote {
+  @apply border-l-4 border-gray-400 pl-4 italic mb-4;
+}
+
+pre {
+  @apply bg-gray-100 p-4 rounded-md mb-4 overflow-auto;
+}
+
+code {
+  @apply bg-gray-100 text-red-600 px-2 py-1 rounded-md;
 }
