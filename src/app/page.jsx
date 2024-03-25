@@ -2,7 +2,7 @@
 "use client";
 import React from 'react'; 
 import { CustomAuthenticator } from "../ui-components/authenticator.override"; 
-import Toppage from './toppage/page';
+// import Toppage from './toppage/page';
 
 export default function App() {
   return (
@@ -10,7 +10,7 @@ export default function App() {
       <CustomAuthenticator>
         <main>  
           {/* ログイン後に表示するコンテンツをここに追加 */}
-          <Toppage/>
+          {/* <Toppage/> */}
         </main> 
       </CustomAuthenticator>
     </div>

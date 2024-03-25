@@ -42,5 +42,27 @@
         "myariadamplifynext": {}
       }
     }
+  },
+  "newmyariad": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-myariadamplifynext-newmyariad-202609-authRole",
+      "UnauthRoleArn": "arn:aws:iam::123521211995:role/amplify-myariadamplifynext-newmyariad-202609-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::123521211995:role/amplify-myariadamplifynext-newmyariad-202609-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-myariadamplifynext-newmyariad-202609-deployment",
+      "UnauthRoleName": "amplify-myariadamplifynext-newmyariad-202609-unauthRole",
+      "StackName": "amplify-myariadamplifynext-newmyariad-202609",
+      "StackId": "arn:aws:cloudformation:us-east-1:123521211995:stack/amplify-myariadamplifynext-newmyariad-202609/7e0e65c0-ea9a-11ee-8511-12b122e55307",
+      "AmplifyAppId": "d1endqjhx9pbv7"
+    },
+    "categories": {
+      "auth": {
+        "myariadamplifynext32654ec0": {},
+        "userPoolGroups": {}
+      },
+      "api": {
+        "myariadamplifynext": {}
+      }
+    }
   }
 }
