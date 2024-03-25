@@ -2,7 +2,7 @@ import React from 'react';
 import { Authenticator, Button } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './authenticator.override.css';
-import { PiSignOut } from 'react-icons/pi';
+import { PiSignOut } from 'react-icons/pi'; 
 
 const CustomSignOutButton = ({ signOut }) => (
   <Button onClick={signOut} className="btn btn-ghost glass">

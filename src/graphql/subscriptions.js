@@ -4,9 +4,9 @@
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser(
     $filter: ModelSubscriptionUserFilterInput
-    $owner: String
+    $id: String
   ) {
-    onCreateUser(filter: $filter, owner: $owner) {
+    onCreateUser(filter: $filter, id: $id) {
       id
       username
       email
@@ -17,7 +17,6 @@ export const onCreateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -25,9 +24,9 @@ export const onCreateUser = /* GraphQL */ `
 export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser(
     $filter: ModelSubscriptionUserFilterInput
-    $owner: String
+    $id: String
   ) {
-    onUpdateUser(filter: $filter, owner: $owner) {
+    onUpdateUser(filter: $filter, id: $id) {
       id
       username
       email
@@ -38,7 +37,6 @@ export const onUpdateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -46,9 +44,9 @@ export const onUpdateUser = /* GraphQL */ `
 export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser(
     $filter: ModelSubscriptionUserFilterInput
-    $owner: String
+    $id: String
   ) {
-    onDeleteUser(filter: $filter, owner: $owner) {
+    onDeleteUser(filter: $filter, id: $id) {
       id
       username
       email
@@ -59,7 +57,6 @@ export const onDeleteUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -79,7 +76,6 @@ export const onCreateNotebook = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       notes {
@@ -112,7 +108,6 @@ export const onUpdateNotebook = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       notes {
@@ -145,7 +140,6 @@ export const onDeleteNotebook = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       notes {
@@ -166,9 +160,9 @@ export const onDeleteNotebook = /* GraphQL */ `
 export const onCreateNote = /* GraphQL */ `
   subscription OnCreateNote(
     $filter: ModelSubscriptionNoteFilterInput
-    $owner: String
+    $notebook: String
   ) {
-    onCreateNote(filter: $filter, owner: $owner) {
+    onCreateNote(filter: $filter, notebook: $notebook) {
       id
       title
       content
@@ -195,14 +189,12 @@ export const onCreateNote = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       createdAt
       updatedAt
       notebookNotesId
       noteGeneratedImageId
-      owner
       __typename
     }
   }
@@ -210,9 +202,9 @@ export const onCreateNote = /* GraphQL */ `
 export const onUpdateNote = /* GraphQL */ `
   subscription OnUpdateNote(
     $filter: ModelSubscriptionNoteFilterInput
-    $owner: String
+    $notebook: String
   ) {
-    onUpdateNote(filter: $filter, owner: $owner) {
+    onUpdateNote(filter: $filter, notebook: $notebook) {
       id
       title
       content
@@ -239,14 +231,12 @@ export const onUpdateNote = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       createdAt
       updatedAt
       notebookNotesId
       noteGeneratedImageId
-      owner
       __typename
     }
   }
@@ -254,9 +244,9 @@ export const onUpdateNote = /* GraphQL */ `
 export const onDeleteNote = /* GraphQL */ `
   subscription OnDeleteNote(
     $filter: ModelSubscriptionNoteFilterInput
-    $owner: String
+    $notebook: String
   ) {
-    onDeleteNote(filter: $filter, owner: $owner) {
+    onDeleteNote(filter: $filter, notebook: $notebook) {
       id
       title
       content
@@ -283,14 +273,12 @@ export const onDeleteNote = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       createdAt
       updatedAt
       notebookNotesId
       noteGeneratedImageId
-      owner
       __typename
     }
   }
@@ -298,9 +286,9 @@ export const onDeleteNote = /* GraphQL */ `
 export const onCreateNoteConnection = /* GraphQL */ `
   subscription OnCreateNoteConnection(
     $filter: ModelSubscriptionNoteConnectionFilterInput
-    $owner: String
+    $sourceNote: String
   ) {
-    onCreateNoteConnection(filter: $filter, owner: $owner) {
+    onCreateNoteConnection(filter: $filter, sourceNote: $sourceNote) {
       id
       sourceNote {
         id
@@ -310,7 +298,6 @@ export const onCreateNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       targetNote {
@@ -321,13 +308,11 @@ export const onCreateNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       order
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -335,9 +320,9 @@ export const onCreateNoteConnection = /* GraphQL */ `
 export const onUpdateNoteConnection = /* GraphQL */ `
   subscription OnUpdateNoteConnection(
     $filter: ModelSubscriptionNoteConnectionFilterInput
-    $owner: String
+    $sourceNote: String
   ) {
-    onUpdateNoteConnection(filter: $filter, owner: $owner) {
+    onUpdateNoteConnection(filter: $filter, sourceNote: $sourceNote) {
       id
       sourceNote {
         id
@@ -347,7 +332,6 @@ export const onUpdateNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       targetNote {
@@ -358,13 +342,11 @@ export const onUpdateNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       order
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -372,9 +354,9 @@ export const onUpdateNoteConnection = /* GraphQL */ `
 export const onDeleteNoteConnection = /* GraphQL */ `
   subscription OnDeleteNoteConnection(
     $filter: ModelSubscriptionNoteConnectionFilterInput
-    $owner: String
+    $sourceNote: String
   ) {
-    onDeleteNoteConnection(filter: $filter, owner: $owner) {
+    onDeleteNoteConnection(filter: $filter, sourceNote: $sourceNote) {
       id
       sourceNote {
         id
@@ -384,7 +366,6 @@ export const onDeleteNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       targetNote {
@@ -395,13 +376,11 @@ export const onDeleteNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       order
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -409,9 +388,9 @@ export const onDeleteNoteConnection = /* GraphQL */ `
 export const onCreateNotebookOutput = /* GraphQL */ `
   subscription OnCreateNotebookOutput(
     $filter: ModelSubscriptionNotebookOutputFilterInput
-    $owner: String
+    $notebook: String
   ) {
-    onCreateNotebookOutput(filter: $filter, owner: $owner) {
+    onCreateNotebookOutput(filter: $filter, notebook: $notebook) {
       id
       title
       notebook {
@@ -431,7 +410,6 @@ export const onCreateNotebookOutput = /* GraphQL */ `
       createdAt
       updatedAt
       notebookNotebookOutputsId
-      owner
       __typename
     }
   }
@@ -439,9 +417,9 @@ export const onCreateNotebookOutput = /* GraphQL */ `
 export const onUpdateNotebookOutput = /* GraphQL */ `
   subscription OnUpdateNotebookOutput(
     $filter: ModelSubscriptionNotebookOutputFilterInput
-    $owner: String
+    $notebook: String
   ) {
-    onUpdateNotebookOutput(filter: $filter, owner: $owner) {
+    onUpdateNotebookOutput(filter: $filter, notebook: $notebook) {
       id
       title
       notebook {
@@ -461,7 +439,6 @@ export const onUpdateNotebookOutput = /* GraphQL */ `
       createdAt
       updatedAt
       notebookNotebookOutputsId
-      owner
       __typename
     }
   }
@@ -469,9 +446,9 @@ export const onUpdateNotebookOutput = /* GraphQL */ `
 export const onDeleteNotebookOutput = /* GraphQL */ `
   subscription OnDeleteNotebookOutput(
     $filter: ModelSubscriptionNotebookOutputFilterInput
-    $owner: String
+    $notebook: String
   ) {
-    onDeleteNotebookOutput(filter: $filter, owner: $owner) {
+    onDeleteNotebookOutput(filter: $filter, notebook: $notebook) {
       id
       title
       notebook {
@@ -491,7 +468,6 @@ export const onDeleteNotebookOutput = /* GraphQL */ `
       createdAt
       updatedAt
       notebookNotebookOutputsId
-      owner
       __typename
     }
   }
@@ -499,9 +475,9 @@ export const onDeleteNotebookOutput = /* GraphQL */ `
 export const onCreateGeneratedImage = /* GraphQL */ `
   subscription OnCreateGeneratedImage(
     $filter: ModelSubscriptionGeneratedImageFilterInput
-    $owner: String
+    $notebookOutput: String
   ) {
-    onCreateGeneratedImage(filter: $filter, owner: $owner) {
+    onCreateGeneratedImage(filter: $filter, notebookOutput: $notebookOutput) {
       id
       notebookOutput {
         id
@@ -511,7 +487,6 @@ export const onCreateGeneratedImage = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       note {
@@ -522,7 +497,6 @@ export const onCreateGeneratedImage = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       imageUrl
@@ -530,7 +504,6 @@ export const onCreateGeneratedImage = /* GraphQL */ `
       updatedAt
       notebookOutputGeneratedImagesId
       generatedImageNoteId
-      owner
       __typename
     }
   }
@@ -538,9 +511,9 @@ export const onCreateGeneratedImage = /* GraphQL */ `
 export const onUpdateGeneratedImage = /* GraphQL */ `
   subscription OnUpdateGeneratedImage(
     $filter: ModelSubscriptionGeneratedImageFilterInput
-    $owner: String
+    $notebookOutput: String
   ) {
-    onUpdateGeneratedImage(filter: $filter, owner: $owner) {
+    onUpdateGeneratedImage(filter: $filter, notebookOutput: $notebookOutput) {
       id
       notebookOutput {
         id
@@ -550,7 +523,6 @@ export const onUpdateGeneratedImage = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       note {
@@ -561,7 +533,6 @@ export const onUpdateGeneratedImage = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       imageUrl
@@ -569,7 +540,6 @@ export const onUpdateGeneratedImage = /* GraphQL */ `
       updatedAt
       notebookOutputGeneratedImagesId
       generatedImageNoteId
-      owner
       __typename
     }
   }
@@ -577,9 +547,9 @@ export const onUpdateGeneratedImage = /* GraphQL */ `
 export const onDeleteGeneratedImage = /* GraphQL */ `
   subscription OnDeleteGeneratedImage(
     $filter: ModelSubscriptionGeneratedImageFilterInput
-    $owner: String
+    $notebookOutput: String
   ) {
-    onDeleteGeneratedImage(filter: $filter, owner: $owner) {
+    onDeleteGeneratedImage(filter: $filter, notebookOutput: $notebookOutput) {
       id
       notebookOutput {
         id
@@ -589,7 +559,6 @@ export const onDeleteGeneratedImage = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       note {
@@ -600,7 +569,6 @@ export const onDeleteGeneratedImage = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       imageUrl
@@ -608,7 +576,6 @@ export const onDeleteGeneratedImage = /* GraphQL */ `
       updatedAt
       notebookOutputGeneratedImagesId
       generatedImageNoteId
-      owner
       __typename
     }
   }

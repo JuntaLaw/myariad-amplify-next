@@ -14,7 +14,6 @@ export const getUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -33,7 +32,6 @@ export const listUsers = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -53,7 +51,6 @@ export const getNotebook = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       notes {
@@ -120,14 +117,12 @@ export const getNote = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       createdAt
       updatedAt
       notebookNotesId
       noteGeneratedImageId
-      owner
       __typename
     }
   }
@@ -147,7 +142,6 @@ export const listNotes = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       nextToken
@@ -167,7 +161,6 @@ export const getNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       targetNote {
@@ -178,13 +171,11 @@ export const getNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       order
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -201,7 +192,6 @@ export const listNoteConnections = /* GraphQL */ `
         order
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -231,7 +221,6 @@ export const getNotebookOutput = /* GraphQL */ `
       createdAt
       updatedAt
       notebookNotebookOutputsId
-      owner
       __typename
     }
   }
@@ -251,7 +240,6 @@ export const listNotebookOutputs = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       nextToken
@@ -271,7 +259,6 @@ export const getGeneratedImage = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       note {
@@ -282,7 +269,6 @@ export const getGeneratedImage = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       imageUrl
@@ -290,7 +276,6 @@ export const getGeneratedImage = /* GraphQL */ `
       updatedAt
       notebookOutputGeneratedImagesId
       generatedImageNoteId
-      owner
       __typename
     }
   }
@@ -309,7 +294,6 @@ export const listGeneratedImages = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       nextToken

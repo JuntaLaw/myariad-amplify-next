@@ -17,7 +17,6 @@ export const createUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -38,7 +37,6 @@ export const updateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -59,7 +57,6 @@ export const deleteUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -79,7 +76,6 @@ export const createNotebook = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       notes {
@@ -112,7 +108,6 @@ export const updateNotebook = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       notes {
@@ -145,7 +140,6 @@ export const deleteNotebook = /* GraphQL */ `
         password
         createdAt
         updatedAt
-        owner
         __typename
       }
       notes {
@@ -195,14 +189,12 @@ export const createNote = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       createdAt
       updatedAt
       notebookNotesId
       noteGeneratedImageId
-      owner
       __typename
     }
   }
@@ -239,14 +231,12 @@ export const updateNote = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       createdAt
       updatedAt
       notebookNotesId
       noteGeneratedImageId
-      owner
       __typename
     }
   }
@@ -283,14 +273,12 @@ export const deleteNote = /* GraphQL */ `
         updatedAt
         notebookOutputGeneratedImagesId
         generatedImageNoteId
-        owner
         __typename
       }
       createdAt
       updatedAt
       notebookNotesId
       noteGeneratedImageId
-      owner
       __typename
     }
   }
@@ -310,7 +298,6 @@ export const createNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       targetNote {
@@ -321,13 +308,11 @@ export const createNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       order
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -347,7 +332,6 @@ export const updateNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       targetNote {
@@ -358,13 +342,11 @@ export const updateNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       order
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -384,7 +366,6 @@ export const deleteNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       targetNote {
@@ -395,13 +376,11 @@ export const deleteNoteConnection = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       order
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -431,7 +410,6 @@ export const createNotebookOutput = /* GraphQL */ `
       createdAt
       updatedAt
       notebookNotebookOutputsId
-      owner
       __typename
     }
   }
@@ -461,7 +439,6 @@ export const updateNotebookOutput = /* GraphQL */ `
       createdAt
       updatedAt
       notebookNotebookOutputsId
-      owner
       __typename
     }
   }
@@ -491,7 +468,6 @@ export const deleteNotebookOutput = /* GraphQL */ `
       createdAt
       updatedAt
       notebookNotebookOutputsId
-      owner
       __typename
     }
   }
@@ -511,7 +487,6 @@ export const createGeneratedImage = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       note {
@@ -522,7 +497,6 @@ export const createGeneratedImage = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       imageUrl
@@ -530,7 +504,6 @@ export const createGeneratedImage = /* GraphQL */ `
       updatedAt
       notebookOutputGeneratedImagesId
       generatedImageNoteId
-      owner
       __typename
     }
   }
@@ -550,7 +523,6 @@ export const updateGeneratedImage = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       note {
@@ -561,7 +533,6 @@ export const updateGeneratedImage = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       imageUrl
@@ -569,7 +540,6 @@ export const updateGeneratedImage = /* GraphQL */ `
       updatedAt
       notebookOutputGeneratedImagesId
       generatedImageNoteId
-      owner
       __typename
     }
   }
@@ -589,7 +559,6 @@ export const deleteGeneratedImage = /* GraphQL */ `
         createdAt
         updatedAt
         notebookNotebookOutputsId
-        owner
         __typename
       }
       note {
@@ -600,7 +569,6 @@ export const deleteGeneratedImage = /* GraphQL */ `
         updatedAt
         notebookNotesId
         noteGeneratedImageId
-        owner
         __typename
       }
       imageUrl
@@ -608,7 +576,6 @@ export const deleteGeneratedImage = /* GraphQL */ `
       updatedAt
       notebookOutputGeneratedImagesId
       generatedImageNoteId
-      owner
       __typename
     }
   }

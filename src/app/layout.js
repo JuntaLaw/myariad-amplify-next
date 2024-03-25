@@ -1,7 +1,12 @@
+// src/app/layout.js
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Amplify } from 'aws-amplify';
+import awsconfig from '../aws-exports';
 
 const inter = Inter({ subsets: ["latin"] });
+
+Amplify.configure(awsconfig);
 
 export const metadata = {
   title: "Miyariad Notebook",
