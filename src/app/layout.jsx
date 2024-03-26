@@ -20,9 +20,13 @@ export default function Layout({ children }) {
     <html lang="ja">
     <body>
   
-     <main>
-     <div className="container">{children}</div>
-     </main>
+      <main 
+      // className="flex min-h-screen w-screen"
+      >
+        <div 
+        // className="container"
+        >{children}</div>
+      </main>
 
     </body>
   </html>

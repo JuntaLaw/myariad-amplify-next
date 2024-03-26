@@ -1,0 +1,13 @@
+.notebook-title-input {
+    background: transparent; /* 背景を透明に */
+    border: none; /* 枠線を消す */
+    color: white; /* 文字色を白に */
+    font-size: 1.5rem; /* フォントサイズを大きく */
+    font-weight: bold; /* フォントを太く */
+    width: 100%; /* 幅を100%に */
+    outline: none; /* フォーカス時のアウトラインを消す */
+}
+
+.notebook-title-input::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* プレースホルダーの色を薄く */
+}

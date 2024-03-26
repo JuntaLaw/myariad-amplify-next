@@ -2,14 +2,14 @@ import React from 'react';
 import Link from "next/link";
 import { PiNotebook } from 'react-icons/pi';
 
-const CreateNoteButton = () => {
+const CreateNoteButton = ({ onClick }) => {
     return (
-        // <Link href="/" className="btn btn-ghost glass my-4 w-30">
-            <div className='btn my-2 w-30 flex flex-row justify-start items-center'>
+        <button onClick={onClick} className="create-note-button">
+            <div className='btn glass ml-4 mt-2 mb-2 flex flex-row justify-start items-center'>
                 <PiNotebook size={25} className='' />
-                <p className='m-2'>新規ノート作成</p>
+                <p className='m-1'>Add Notebook</p>
             </div>
-        // </Link>
+        </button>
     );
 };
 

@@ -1,14 +1,15 @@
-import Notebook from "../Card/Notebook"
-import CardNote from "../Card/CardNote";
+// src/components/ui/NotePage/NotebookHome.jsx
+import React, { useState } from 'react'; 
+import './NotebookHome.css';
 
-const NotebookHome = () => {
+const NotebookHome = ({ notebooks }) => {
     return (
-        <div className="h-full">
-            <div className="ml-10 mt-10 flex gap-10">
-                <Notebook /> 
-                <CardNote />
+        <div className="notebook-home">
+            <div className="notebooks">
+                {notebooks}
             </div>
         </div>
     );
 };
+
 export default NotebookHome;

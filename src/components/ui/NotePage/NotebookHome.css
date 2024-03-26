@@ -1,0 +1,8 @@
+.notebooks {
+    display: flex;
+    flex-wrap: wrap; /* 要素がコンテナを超える場合に折り返し */
+    gap: 20px; /* Notebookコンポーネント間の間隔 */
+    justify-content: flex-start; /* 左揃えで表示 */
+    padding: 20px; /* コンテナ内のパディング */
+    margin-left: 20px; /* コンテナの左側に20pxのマージンを設定 */
+}

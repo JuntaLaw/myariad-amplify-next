@@ -20,7 +20,7 @@
     width: 100%;
   }
   
-  .amplify-container {
+  /* .amplify-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,7 +28,7 @@
     max-width: 400px;
     margin: 0 auto;
     padding: 1rem;
-  }
+  } */
 
 .amplify-button--primary {
     background: linear-gradient(

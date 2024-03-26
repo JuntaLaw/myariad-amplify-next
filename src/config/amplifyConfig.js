@@ -7,7 +7,7 @@ const amplifyConfig = {
       userPoolId: 'us-east-1_FrgJ7Dy89',
       region: 'us-east-1',
       loginWith: {
-        oauth: {
+        Auth: {
           domain: 'https://myariad.auth.us-east-1.amazoncognito.com',
           scopes: ['openid', 'email', 'phone', 'profile', 'aws.cognito.signin.user.admin'],
           redirectSignIn: ['http://localhost:3000/', 'https://main.d7flzcqnvsanz.amplifyapp.com/'],
