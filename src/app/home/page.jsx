@@ -4,19 +4,20 @@ import React, { useState } from 'react';
 import NavigationBar from "../../components/navi/NavigationBar";
 import NotebookHome from "../../components/ui/NotePage/NotebookHome";
 import Notebook from "../../components/ui/Card/Notebook";
+import { v4 as uuidv4 } from 'uuid'; // uuidをインポート
 
 function Home() {
   const [notebooks, setNotebooks] = useState([]);
 
+  // Notebookコンポーネントの追加機能
   const handleCreateNotebook = () => {
-    // 実際のアプリケーションでは、ここでデータベースから取得したNotebook IDを使用します
-    const notebookId = Date.now().toString(); // 一時的なIDとしてDate.now()を使用
+    const notebookId = uuidv4(); // uuidを使用して一意のIDを生成 
     const newNotebook = {
       id: notebookId,
       component: (
         <Notebook
           key={notebookId}
-          id={notebookId}
+          id={notebookId} // ここでNotebookコンポーネントにidプロパティを渡しています
           onDelete={handleDeleteNotebook}
         />
       ),
@@ -24,6 +25,7 @@ function Home() {
     setNotebooks(prevNotebooks => [...prevNotebooks, newNotebook]);
   };
 
+  // Notebookコンポーネントの削除機能
   const handleDeleteNotebook = (id) => {
     // 実際のアプリケーションでは、ここでデータベースからNotebookを削除する処理を行います
     setNotebooks(currentNotebooks => currentNotebooks.filter(notebook => notebook.id !== id));

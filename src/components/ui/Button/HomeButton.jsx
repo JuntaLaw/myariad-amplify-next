@@ -4,12 +4,12 @@ import { PiHouseLine } from 'react-icons/pi';
 
 const HomeButton = () => {
     return (
-        // <Link href="/" className="btn btn-ghost glass my-4 w-30">
+        <Link href="/home" passHref>
             <div className='btn glass ml-4 my-auto flex flex-row justify-start items-center'>
                 <PiHouseLine size={25} className='' />
                 <p className='m-2'>Back to Home</p>
             </div>
-        // </Link>
+        </Link>
     );
 };
 
