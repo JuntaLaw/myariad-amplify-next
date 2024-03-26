@@ -39,12 +39,13 @@ const Notebook = ({id, onDelete}) => {
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                            {/* タイトルを編集可能にする */} 
                         <textarea
-                            ref={titleRef} // テキストエリアへの参照を設定
+                            id="notebookTitle" // id属性を追加
+                            ref={titleRef}
                             value={title}
                             onChange={handleTitleChange}
                             className="notebook-title-input"
                             placeholder="Enter Notebook Title"
-                            rows="2" // 初期状態では1行の高さ
+                            rows="2"
                         />
                     {/* <h2 className="card-title">Notebook title</h2>  */}
                     <div className="card-actions justify-end mt-4">
