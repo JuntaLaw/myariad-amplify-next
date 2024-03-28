@@ -1,8 +1,6 @@
-// src/components/ui/NotePage/NotebookHome.jsx
-import React, { useState } from 'react'; 
 import './NotebookHome.css';
 
-const NotebookHome = ({ notebooks }) => {
+export default function NotebookHome({ notebooks }) {
     return (
         <div className="notebook-home">
             <div className="notebooks">
@@ -10,6 +8,4 @@ const NotebookHome = ({ notebooks }) => {
             </div>
         </div>
     );
-};
-
-export default NotebookHome;
+}

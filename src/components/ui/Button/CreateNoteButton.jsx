@@ -2,7 +2,7 @@ import React from 'react';
 import Link from "next/link";
 import { PiNotebook } from 'react-icons/pi';
 
-const CreateNoteButton = ({ onClick }) => {
+export default function CreateNoteButton({ onClick }) {
     return (
         <button onClick={onClick} className="create-note-button">
             <div className='btn glass ml-4 mt-2 mb-2 flex flex-row justify-start items-center'>
@@ -11,6 +11,4 @@ const CreateNoteButton = ({ onClick }) => {
             </div>
         </button>
     );
-};
-
-export default CreateNoteButton;
+}

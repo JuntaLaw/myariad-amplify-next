@@ -2,11 +2,10 @@
 import React, { useState, useEffect, useRef } from 'react'; 
 import { v4 as uuidv4 } from 'uuid'; // uuidをインポート
 import { PiX } from "react-icons/pi"; 
-import './Notebook.css';
-import Link from 'next/link'; // Linkコンポーネントをインポート
+import './Notebook.css'; 
 import OpenButton from '../Button/OpenButton'; // OpenButton コンポーネントをインポート 
 
-const Notebook = ({id, onDelete}) => {
+export default function Notebook({id, onDelete}) {
 
         // タイトルの状態を管理するためのuseStateフック
         const [title, setTitle] = useState('');
@@ -61,5 +60,3 @@ const Notebook = ({id, onDelete}) => {
         </div>
     );
 };
-
-export default Notebook;

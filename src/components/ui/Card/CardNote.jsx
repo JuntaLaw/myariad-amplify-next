@@ -1,4 +1,4 @@
-const CardNote = () => {
+export default function CardNote() {
     return (
         <div className="card bg-white text-zinc-800 w-60">
             <div className="card-body">
@@ -7,5 +7,4 @@ const CardNote = () => {
             </div>
         </div>
     );
-};
-export default CardNote;
+}
