@@ -1,58 +1,35 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import NavigationBar from "../../components/navi/NavigationBar";
 import NotebookHome from "../../components/ui/NotePage/NotebookHome";
 import Notebook from "../../components/ui/Card/Notebook";
-import { v4 as uuidv4 } from 'uuid';
+import useNotebookStore from '../../store/notebookStore';
 
 export default function Home() {
-  const [notebooks, setNotebooks] = useState(() => {
-     // ローカルストレージからNotebookの状態を取得
-      const storedNotebooks = localStorage.getItem('notebooks'); 
-      if (storedNotebooks) {
-        return JSON.parse(storedNotebooks).map(notebook => ({
-          ...notebook,
-          component: () => <Notebook key={notebook.id} id={notebook.id} onDelete={handleDeleteNotebook} />,
-        }));
-      }
-      return [];
-    });
+  const notebooks = useNotebookStore(state => state.notebooks);
+  const createNotebook = useNotebookStore(state => state.createNotebook);
+  const setNotebooks = useNotebookStore(state => state.setNotebooks);
 
-    useEffect(() => {
-      // Notebookの状態がアップデートされたらローカルストレージに保存
-      localStorage.setItem('notebooks', JSON.stringify(notebooks.map(notebook => ({
+  useEffect(() => {
+    const storedNotebooks = JSON.parse(localStorage.getItem('notebook-storage'));
+    if (storedNotebooks && storedNotebooks.state && storedNotebooks.state.notebooks) {
+      const updatedNotebooks = storedNotebooks.state.notebooks.map(notebook => ({
         ...notebook,
-        component: null,
-      }))));
-    }, [notebooks]);
-  
-
-  // Notebookコンポーネントの追加機能
-  const handleCreateNotebook = () => {
-    const notebookId = uuidv4();
-    const newNotebook = {
-      id: notebookId,
-      component: () => (
-        <Notebook
-          key={notebookId}
-          id={notebookId}
-          onDelete={handleDeleteNotebook}
-        />
-      ),
-    };
-    setNotebooks(prevNotebooks => [...prevNotebooks, newNotebook]);
-  };
-
-  // Notebookコンポーネントの削除機能
-  const handleDeleteNotebook = (id) => {
-    setNotebooks(currentNotebooks => currentNotebooks.filter(notebook => notebook.id !== id));
-  };
+        component: undefined,
+      }));
+      setNotebooks(updatedNotebooks);
+    }
+  }, []);
 
   return (
     <main className="flex min-h-screen w-screen flex-col">
       <div className="app">
-        <NavigationBar onCreateNotebook={handleCreateNotebook} />
-        <NotebookHome notebooks={notebooks.map(notebook => notebook.component())} />
+        <NavigationBar onCreateNotebook={createNotebook} />
+        <NotebookHome>
+          {notebooks.map(notebook => (
+            <Notebook key={notebook.id} id={notebook.id} />
+          ))}
+        </NotebookHome>
       </div>
     </main>
   );
