@@ -3,6 +3,7 @@ import React from 'react';
 import CreateNoteButton from '../ui/Button/CreateNoteButton';
 import HomeHere from '../ui/Button/HomeHere';
 
+// CreateNoteButtonをクリックNotebookコンポーネントがNotebookHomeコンポーネントに追加される機能
 function NavigationBar({onCreateNotebook}) { 
     return (
         <nav className="navbar">

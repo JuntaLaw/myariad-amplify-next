@@ -85,3 +85,11 @@ pre {
 code {
   @apply bg-gray-100 text-red-600 px-2 py-1 rounded-md;
 }
+
+.link-no-underline p {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}

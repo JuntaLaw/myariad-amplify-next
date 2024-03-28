@@ -1,14 +1,15 @@
 // src/components/ui/Button/OpenButton.jsx
 import React from 'react';
+import Link from 'next/link';
 import { FaPaw } from 'react-icons/fa';
 
-const OpenButton = ({ openNotePage }) => {
-  return (
-    <button className="btn btn-primary" onClick={openNotePage}>
-      <FaPaw className="mr-2" />
-      <span>OPEN</span>
-    </button>
-  );
-};
-
-export default OpenButton;
+export default function OpenButton({ notebookId }) { 
+    return (
+    <Link href={`home/notepage/${notebookId}`} passHref>     
+        <button className="btn btn-primary">
+            <FaPaw className="mr-2" />
+            <span>OPEN</span>
+        </button>
+    </Link>
+    );
+}

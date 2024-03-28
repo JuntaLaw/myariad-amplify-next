@@ -1,17 +1,19 @@
 // src/components/ui/Card/Notebook.jsx
-import React, { useState, useEffect, useRef } from 'react';
-import { FaPaw } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react'; 
+import { v4 as uuidv4 } from 'uuid'; // uuidをインポート
 import { PiX } from "react-icons/pi"; 
-import './Notebook.css';
-import OpenButton from '../Button/OpenButton'; // OpenButton コンポーネントをインポート
+import './Notebook.css'; 
+import OpenButton from '../Button/OpenButton'; // OpenButton コンポーネントをインポート 
 
-const Notebook = ({id, onDelete}) => {
+export default function Notebook({id, onDelete}) {
 
         // タイトルの状態を管理するためのuseStateフック
         const [title, setTitle] = useState('');
         const titleRef = useRef(null); // テキストエリアへの参照を作成
+        const [inputId, setInputId] = useState(''); // 一意のIDを保持するためのstate
 
         useEffect(() => {
+            setInputId(`notebook-title-${uuidv4()}`); // コンポーネントのマウント時に一意のIDを生成
             // コンポーネントがマウントされた後にテキストエリアのスクロール位置を設定
             if (titleRef.current) {
                 titleRef.current.scrollTop = 0; // スクロール位置を上端に設定
@@ -37,24 +39,24 @@ const Notebook = ({id, onDelete}) => {
 
                     {/* Notebookの内容 */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                           {/* タイトルを編集可能にする */} 
-                        <textarea
-                            id="notebookTitle" // id属性を追加
-                            ref={titleRef}
-                            value={title}
-                            onChange={handleTitleChange}
-                            className="notebook-title-input"
-                            placeholder="Enter Notebook Title"
-                            rows="2"
-                        />
+                    {/* タイトルを編集可能にする */} 
+                    <textarea
+                        id={inputId} // 生成した一意のIDを使用
+                        ref={titleRef}
+                        value={title}
+                        onChange={handleTitleChange}
+                        className="notebook-title-input"
+                        placeholder="Enter Notebook Title"
+                        rows="2"
+                    />
                     {/* <h2 className="card-title">Notebook title</h2>  */}
                     <div className="card-actions justify-end mt-4">
+
                         <OpenButton openNotePage={() => {}} />
+                        
                     </div>
                 </div>
             </div>
         </div>
     );
 };
-
-export default Notebook;

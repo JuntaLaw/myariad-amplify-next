@@ -1,6 +1,6 @@
 import CardNote from "../Card/CardNote";
 
-const CardEditArea = () => {
+export default function CardEditArea() {
     return (
         <div className="h-full">
             <div className="ml-10 mt-10 flex gap-10">
@@ -10,5 +10,4 @@ const CardEditArea = () => {
             </div>
         </div>
     );
-};
-export default CardEditArea;
+}

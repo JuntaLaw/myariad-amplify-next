@@ -1,19 +1,38 @@
-// ”src/app/home/page.jsx”
 "use client";
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavigationBar from "../../components/navi/NavigationBar";
 import NotebookHome from "../../components/ui/NotePage/NotebookHome";
 import Notebook from "../../components/ui/Card/Notebook";
+import { v4 as uuidv4 } from 'uuid';
 
-function Home() {
-  const [notebooks, setNotebooks] = useState([]);
+export default function Home() {
+  const [notebooks, setNotebooks] = useState(() => {
+     // ローカルストレージからNotebookの状態を取得
+      const storedNotebooks = localStorage.getItem('notebooks'); 
+      if (storedNotebooks) {
+        return JSON.parse(storedNotebooks).map(notebook => ({
+          ...notebook,
+          component: () => <Notebook key={notebook.id} id={notebook.id} onDelete={handleDeleteNotebook} />,
+        }));
+      }
+      return [];
+    });
 
+    useEffect(() => {
+      // Notebookの状態がアップデートされたらローカルストレージに保存
+      localStorage.setItem('notebooks', JSON.stringify(notebooks.map(notebook => ({
+        ...notebook,
+        component: null,
+      }))));
+    }, [notebooks]);
+  
+
+  // Notebookコンポーネントの追加機能
   const handleCreateNotebook = () => {
-    // 実際のアプリケーションでは、ここでデータベースから取得したNotebook IDを使用します
-    const notebookId = Date.now().toString(); // 一時的なIDとしてDate.now()を使用
+    const notebookId = uuidv4();
     const newNotebook = {
       id: notebookId,
-      component: (
+      component: () => (
         <Notebook
           key={notebookId}
           id={notebookId}
@@ -24,19 +43,17 @@ function Home() {
     setNotebooks(prevNotebooks => [...prevNotebooks, newNotebook]);
   };
 
+  // Notebookコンポーネントの削除機能
   const handleDeleteNotebook = (id) => {
-    // 実際のアプリケーションでは、ここでデータベースからNotebookを削除する処理を行います
     setNotebooks(currentNotebooks => currentNotebooks.filter(notebook => notebook.id !== id));
   };
 
   return (
-    <main className="flex min-h-screen w-screen flex-col" > 
+    <main className="flex min-h-screen w-screen flex-col">
       <div className="app">
         <NavigationBar onCreateNotebook={handleCreateNotebook} />
-        <NotebookHome notebooks={notebooks.map(notebook => notebook.component)} />
+        <NotebookHome notebooks={notebooks.map(notebook => notebook.component())} />
       </div>
     </main>
   );
 }
-
-export default Home;
