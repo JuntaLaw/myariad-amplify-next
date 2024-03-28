@@ -3,13 +3,16 @@ import React from 'react';
 import Link from 'next/link';
 import { FaPaw } from 'react-icons/fa';
 
-export default function OpenButton({ notebookId }) { 
+const OpenButton = ({ notebookId }) => {
     return (
-    <Link href={`home/notepage/${notebookId}`} passHref>     
-        <button className="btn btn-primary">
-            <FaPaw className="mr-2" />
+        // notebookIdを使ってnotepageへのリンクを作成
+        <Link href={`/home/notepage/${notebookId}`} className="link-no-underline">
+            <button className="btn btn-primary">
+            <FaPaw size={20} className="mr-2" />
             <span>OPEN</span>
         </button>
-    </Link>
+        </Link>
     );
-}
+};
+
+export default OpenButton;
