@@ -18,16 +18,10 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <html lang="ja">
-    <body>
-  
-      <main 
-      // className="flex min-h-screen w-screen"
-      >
-        <div 
-        // className="container"
-        >{children}</div>
-      </main>
-
+    <body> 
+      <main>
+        <div>{children}</div>
+      </main> 
     </body>
   </html>
   );
