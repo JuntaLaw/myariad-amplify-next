@@ -38,21 +38,29 @@ const useCardNoteStore = create(
           cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, title } : cardNote)),
         }));
       },
+      // updateCardNoteContent: (id, content) => {
+      //   set((state) => ({
+      //     cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, content } : cardNote)),
+      //   }));
+      // },
+
+      // updateCardNoteContent関数を追加
       updateCardNoteContent: (id, content) => {
         set((state) => ({
           cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, content } : cardNote)),
         }));
       },
+
       deleteCardNote: (id) => {
         set((state) => ({ cardNotes: state.cardNotes.filter((cardNote) => cardNote.id !== id) }));
       },
       updateCardNotePosition: (id, position) => {
         set((state) => ({
           cardNotes: state.cardNotes.map((cardNote) =>
-            cardNote.id === id ? { ...cardNote, position: { x: position.x, y: position.y } } : cardNote
+            cardNote.id === id ? { ...cardNote, position: position || { x: 0, y: 0 } } : cardNote
           ),
           nodes: state.nodes.map((node) =>
-            node.id === id ? { ...node, position: { x: position.x, y: position.y } } : node
+            node.id === id ? { ...node, position: position || { x: 0, y: 0 } } : node
           ),
         }));
       },

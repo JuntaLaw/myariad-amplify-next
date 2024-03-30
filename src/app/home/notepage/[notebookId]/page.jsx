@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import { useRouter } from 'next/navigation'; // useRouterをインポート
 import ReactFlow, { addEdge } from 'reactflow';
 import 'reactflow/dist/style.css';
 
@@ -12,6 +13,7 @@ const initialEdges = [];
 
 export default function NotePage({ params }) {
   const { notebookId } = params;
+  const router = useRouter(); // routerを定義
   const notebook = useNotebookStore((state) => state.notebooks.find((notebook) => notebook.id === notebookId));
   const cardNotes = useCardNoteStore((state) => state.cardNotes.filter((cardNote) => cardNote.notebookId === notebookId));
   const createCardNote = useCardNoteStore((state) => state.createCardNote);
@@ -28,12 +30,20 @@ export default function NotePage({ params }) {
 
   const onConnect = React.useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
-  const nodeTypes = React.useMemo(() => ({ cardNote: CardNote }), []);
+  const nodeTypes = React.useMemo(() => ({
+    cardNote: (props) => (
+      <CardNote
+        {...props}
+        onEditClick={(cardNoteId) => router.push(`/home/notepage/${notebookId}/edit/${cardNoteId}`)}
+      />
+    ),
+  }), [router, notebookId]);
 
   const onNodeDragStop = React.useCallback((event, node) => {
-    updateCardNotePosition(node.id, node.position);
+    if (node) {
+      updateCardNotePosition(node.id, node.position);
+    }
   }, [updateCardNotePosition]);
-
   return (
     <main className="min-h-screen w-screen">
       <div>
