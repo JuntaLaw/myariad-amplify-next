@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef } from 'react';
-import { PiX } from "react-icons/pi";
-import './Notebook.css';
+import { PiX } from "react-icons/pi"; 
 import OpenButton from '../Button/OpenButton';
 import useNotebookStore from '../../../store/notebookStore';
 
@@ -24,7 +23,7 @@ export default function Notebook({ id }) {
     return (
         <div
         className="card glass w-72 h-96 shadow-xl relative bg-cover bg-center text-white rounded-b-xl overflow-hidden"
-        style={{ backgroundImage: `url('/amber-kipp-75715CVEJhI-unsplash.jpg')` }}
+        style={{ backgroundImage: `url('/amber-kipp-75715CVEJhI-unsplash.jpg')`, pointerEvents: 'auto', cursor: 'auto'}}
         >
         <div className="card-body bg-gradient-to-b from-transparent via-transparent to-black flex flex-col justify-end h-full">
             <div className="absolute top-0 right-0 p-4">
@@ -38,7 +37,7 @@ export default function Notebook({ id }) {
                 ref={titleRef}
                 value={notebook?.title || ''}
                 onChange={handleTitleChange}
-                className="notebook-title-input"
+                className="textarea textarea-ghost w-full text-xl font-bold border-none resize-none placeholder-zinc-300"
                 placeholder="Enter Notebook Title"
                 rows="2"
             />

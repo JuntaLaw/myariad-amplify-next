@@ -1,0 +1,4 @@
+/* app/globals.css または入力ページ固有のCSSファイル */
+.edit-note-page { 
+bg-color: #f0f0f0;
+}

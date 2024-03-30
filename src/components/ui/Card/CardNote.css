@@ -1,0 +1,8 @@
+/* src/components/ui/Card/CardNote.css
+
+/*  */
+.card-note-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
