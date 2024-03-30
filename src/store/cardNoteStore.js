@@ -7,6 +7,8 @@ const useCardNoteStore = create(
   persist(
     (set, get) => ({
       cardNotes: [],
+      expandedCardNoteIds: [], // 新しい状態を追加
+      nodes: [], // 新しい状態
       createCardNote: (notebookId) => {
         const cardNoteId = uuidv4();
         const newCardNote = {
@@ -14,9 +16,23 @@ const useCardNoteStore = create(
           notebookId,
           title: '',
           content: '',
+          position: { x: 0, y: 0 }, // 初期位置を設定
         };
-        set((state) => ({ cardNotes: [...state.cardNotes, newCardNote] }));
+        set((state) => ({
+          cardNotes: [...state.cardNotes, newCardNote],
+          nodes: [
+            ...state.nodes,
+            {
+              id: cardNoteId,
+              position: { x: 0, y: 0 },
+              data: { cardNote: newCardNote },
+              type: 'cardNote',
+            },
+          ],
+        }));
       },
+
+
       updateCardNoteTitle: (id, title) => {
         set((state) => ({
           cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, title } : cardNote)),
@@ -30,6 +46,38 @@ const useCardNoteStore = create(
       deleteCardNote: (id) => {
         set((state) => ({ cardNotes: state.cardNotes.filter((cardNote) => cardNote.id !== id) }));
       },
+      updateCardNotePosition: (id, position) => {
+        set((state) => ({
+          cardNotes: state.cardNotes.map((cardNote) =>
+            cardNote.id === id ? { ...cardNote, position: { x: position.x, y: position.y } } : cardNote
+          ),
+          nodes: state.nodes.map((node) =>
+            node.id === id ? { ...node, position: { x: position.x, y: position.y } } : node
+          ),
+        }));
+      },
+      // 新しい関数を追加
+      toggleCardNoteExpanded: (cardNoteId) => {
+        set((state) => ({
+          expandedCardNoteIds: state.expandedCardNoteIds.includes(cardNoteId)
+            ? state.expandedCardNoteIds.filter((id) => id !== cardNoteId)
+            : [...state.expandedCardNoteIds, cardNoteId],
+        }));
+      },
+
+      // 新しい関数を追加
+      setNodes: (setNodes) => {
+        const cardNotes = get().cardNotes;
+        const newNodes = cardNotes.map((cardNote) => ({
+          id: cardNote.id,
+          position: cardNote.position || { x: 0, y: 0 },
+          data: { cardNote },
+          type: 'cardNote',
+        }));
+        setNodes(newNodes);
+      },
+
+
     }),
     {
       name: 'cardNote-storage',
