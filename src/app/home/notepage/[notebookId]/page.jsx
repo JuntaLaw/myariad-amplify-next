@@ -1,7 +1,8 @@
 "use client";
-import React from 'react';
-import { useRouter } from 'next/navigation'; // useRouterをインポート
+import React, { useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import ReactFlow, { addEdge } from 'reactflow';
+import { v4 as uuidv4 } from 'uuid';
 import 'reactflow/dist/style.css';
 
 import NoteNavBar from '../../../../components/navi/NoteNavBar';
@@ -9,15 +10,16 @@ import useNotebookStore from '../../../../store/notebookStore';
 import useCardNoteStore from '../../../../store/cardNoteStore';
 import CardNote from '../../../../components/ui/Card/CardNote';
 
-const initialEdges = [];
-
 export default function NotePage({ params }) {
   const { notebookId } = params;
-  const router = useRouter(); // routerを定義
+  const router = useRouter();
   const notebook = useNotebookStore((state) => state.notebooks.find((notebook) => notebook.id === notebookId));
   const cardNotes = useCardNoteStore((state) => state.cardNotes.filter((cardNote) => cardNote.notebookId === notebookId));
   const createCardNote = useCardNoteStore((state) => state.createCardNote);
   const updateCardNotePosition = useCardNoteStore((state) => state.updateCardNotePosition);
+  const addEdge = useCardNoteStore((state) => state.addEdge);
+  const removeEdge = useCardNoteStore((state) => state.removeEdge);
+  const persistedEdges = useCardNoteStore((state) => state.edges);
 
   const nodes = cardNotes.map((cardNote) => ({
     id: cardNote.id,
@@ -26,9 +28,23 @@ export default function NotePage({ params }) {
     type: 'cardNote',
   }));
 
-  const [edges, setEdges] = React.useState(initialEdges);
+  const [edges, setEdges, onEdgesChange] = React.useState([]);
 
-  const onConnect = React.useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
+  const onConnect = useCallback(
+    (params) => {
+      setEdges((eds) => addEdge({ ...params, id: uuidv4() }, eds));
+    },
+    [addEdge, setEdges]
+  );
+
+  const onEdgesChangeCallback = useCallback(
+    (removedEdges) => {
+      removedEdges.forEach((edgeId) => {
+        removeEdge(edgeId);
+      });
+    },
+    [removeEdge]
+  );
 
   const nodeTypes = React.useMemo(() => ({
     cardNote: (props) => (
@@ -44,6 +60,11 @@ export default function NotePage({ params }) {
       updateCardNotePosition(node.id, node.position);
     }
   }, [updateCardNotePosition]);
+
+  useEffect(() => {
+    setEdges(persistedEdges);
+  }, [persistedEdges, setEdges]);
+
   return (
     <main className="min-h-screen w-screen">
       <div>
@@ -57,6 +78,7 @@ export default function NotePage({ params }) {
           nodes={nodes}
           edges={edges}
           onConnect={onConnect}
+          onEdgesChange={onEdgesChangeCallback}
           nodeTypes={nodeTypes}
           onNodeDragStop={onNodeDragStop}
           fitView
