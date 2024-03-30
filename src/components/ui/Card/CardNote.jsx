@@ -3,7 +3,7 @@ import React from 'react';
 import { Handle, Position } from 'reactflow';
 import useCardNoteStore from '../../../store/cardNoteStore';
 import { PiX, PiPencil } from 'react-icons/pi'; 
-import './cardnote.css';
+// import './CardNote.css';
 
 export default function CardNote({ id, data, onEditClick }) {
   const cardNote = data.cardNote;
