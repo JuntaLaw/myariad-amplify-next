@@ -37,7 +37,7 @@ export default function Notebook({ id }) {
                 ref={titleRef}
                 value={notebook?.title || ''}
                 onChange={handleTitleChange}
-                className="textarea textarea-ghost w-full text-xl font-bold bg-transparent border-none resize-none"
+                className="textarea textarea-ghost w-full text-xl font-bold border-none resize-none placeholder-zinc-300"
                 placeholder="Enter Notebook Title"
                 rows="2"
             />

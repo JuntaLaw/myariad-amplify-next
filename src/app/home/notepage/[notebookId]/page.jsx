@@ -8,24 +8,26 @@ import useCardNoteStore from '../../../../store/cardNoteStore';
 import CardNote from '../../../../components/ui/Card/CardNote';
 
 export default function NotePage({ params }) {
-  const { notebookId } = params;
-  const notebook = useNotebookStore((state) => state.notebooks.find((notebook) => notebook.id === notebookId));
-  const cardNotes = useCardNoteStore((state) => state.cardNotes.filter((cardNote) => cardNote.notebookId === notebookId));
-  const createCardNote = useCardNoteStore((state) => state.createCardNote);
+    const { notebookId } = params;
+    const notebook = useNotebookStore((state) => state.notebooks.find((notebook) => notebook.id === notebookId));
+    const cardNotes = useCardNoteStore((state) => state.cardNotes.filter((cardNote) => cardNote.notebookId === notebookId));
+    const createCardNote = useCardNoteStore((state) => state.createCardNote);
 
-  return (
-    <main className="min-h-screen w-screen">
-      <div>
-        <NoteNavBar onCreateCardNote={() => createCardNote(notebookId)} />
-      </div>
-      <div>
-        <h1 className='ml-6 mt-4 drop-shadow-lg'>{notebook?.title || 'Untitled'}</h1>
-        <div className="flex flex-wrap">
-          {cardNotes.map((cardNote) => (
-            <CardNote key={cardNote.id} id={cardNote.id} notebookId={notebookId} />
-          ))}
+    return (
+        <main className="min-h-screen w-screen">
+        <div>
+            <NoteNavBar onCreateCardNote={() => createCardNote(notebookId)} />
         </div>
-      </div>
-    </main>
-  );
+        <div>
+            <h1 className='ml-6 mt-4 drop-shadow-lg'>{notebook?.title || 'Untitled'}</h1>
+            <div className="flex flex-wrap gap-8 ml-8">
+            {cardNotes.map((cardNote) => (
+                <div key={cardNote.id} className="mb-8">
+                <CardNote id={cardNote.id} notebookId={notebookId} />
+            </div>
+            ))}
+            </div>
+        </div>
+        </main>
+    );
 }
