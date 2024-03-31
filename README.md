@@ -2,8 +2,8 @@
 
 ## DEMO
 
-  - デプロイしている場合はURLを記入（任意）
-  https://main.d7flzcqnvsanz.amplifyapp.com/
+  - https://main.d1endqjhx9pbv7.amplifyapp.com/
+
 
 ## 紹介と使い方
 
@@ -17,6 +17,6 @@
 
 ## 技術構成
 
-  - フロントエンド：　Next.js 14 App Router, Tailwind CSS, Daisy UI
+  - フロントエンド：　Next.js 14 App Router, Tailwind CSS, Daisy UI, Zustand, React Flow
   - バックエンド：　AWS Ampilify, GraphQL, DynamoDB
   - 画像生成AI：　Amazon Bedrockを導入予定（開発中）
