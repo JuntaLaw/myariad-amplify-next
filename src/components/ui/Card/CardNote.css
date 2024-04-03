@@ -1,39 +1,8 @@
-/* src/components/ui/Card/CardNote.css */
-.card {
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 16px;
-    padding: 16px;
-    width: 300px;
-  }
-  
-  .card-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-  
-  .card-title input {
-    border: none;
-    font-size: 18px;
-    font-weight: bold;
-    flex-grow: 1;
-    margin-right: 8px;
-  }
-  
-  .card-actions button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 8px;
-  }
-  
-  .card textarea {
-    border: none;
-    resize: none;
-    width: 100%;
-    height: 200px;
-    font-size: 16px;
-  }
+/* src/components/ui/Card/CardNote.css
+
+/*  */
+.card-note-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

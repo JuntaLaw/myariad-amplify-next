@@ -9,6 +9,8 @@ const useCardNoteStore = create(
       cardNotes: [],
       expandedCardNoteIds: [], // 新しい状態を追加
       nodes: [], // 新しい状態
+      edges: [], // エッジの状態を追加 
+      
       createCardNote: (notebookId) => {
         const cardNoteId = uuidv4();
         const newCardNote = {
@@ -30,29 +32,29 @@ const useCardNoteStore = create(
             },
           ],
         }));
-      },
-
-
+      }, 
       updateCardNoteTitle: (id, title) => {
         set((state) => ({
           cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, title } : cardNote)),
         }));
       },
+
       updateCardNoteContent: (id, content) => {
         set((state) => ({
           cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, content } : cardNote)),
         }));
       },
+
       deleteCardNote: (id) => {
         set((state) => ({ cardNotes: state.cardNotes.filter((cardNote) => cardNote.id !== id) }));
       },
       updateCardNotePosition: (id, position) => {
         set((state) => ({
           cardNotes: state.cardNotes.map((cardNote) =>
-            cardNote.id === id ? { ...cardNote, position: { x: position.x, y: position.y } } : cardNote
+            cardNote.id === id ? { ...cardNote, position: position || { x: 0, y: 0 } } : cardNote
           ),
           nodes: state.nodes.map((node) =>
-            node.id === id ? { ...node, position: { x: position.x, y: position.y } } : node
+            node.id === id ? { ...node, position: position || { x: 0, y: 0 } } : node
           ),
         }));
       },
@@ -76,6 +78,13 @@ const useCardNoteStore = create(
         }));
         setNodes(newNodes);
       },
+
+      addEdge: (edge) => {
+        set((state) => ({ edges: [...state.edges, edge] }));
+      },
+      removeEdge: (edgeId) => {
+        set((state) => ({ edges: state.edges.filter((edge) => edge.id !== edgeId) }));
+      }, 
 
 
     }),

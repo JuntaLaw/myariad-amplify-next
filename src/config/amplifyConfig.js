@@ -1,17 +1,19 @@
 import { Amplify } from 'aws-amplify';
+// import config from './amplifyconfiguration.json';
+// Amplify.configure(config);
 
 const amplifyConfig = {
   Auth: {
     Cognito: {
-      userPoolClientId: '7jncvgbm69oa18ar9d0v2lghec',
-      userPoolId: 'us-east-1_FrgJ7Dy89',
-      region: 'us-east-1',
+      userPoolClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID, 
+      userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
+      region: process.env.NEXT_PUBLIC_REGION,
       loginWith: {
-        Auth: {
-          domain: 'https://myariad.auth.us-east-1.amazoncognito.com',
+        oauth: {
+          domain: process.env.NEXT_PUBLIC_OAUTH_DOMAIN,
           scopes: ['openid', 'email', 'phone', 'profile', 'aws.cognito.signin.user.admin'],
-          redirectSignIn: ['http://localhost:3000/', 'https://main.d7flzcqnvsanz.amplifyapp.com/'],
-          redirectSignOut:['http://localhost:3000/', 'https://main.d7flzcqnvsanz.amplifyapp.com/'],
+          redirectSignIn: process.env.NEXT_PUBLIC_REDIRECT_SIGN_IN.split(','),
+          redirectSignOut: process.env.NEXT_PUBLIC_REDIRECT_SIGN_OUT.split(','),
           responseType: 'code',
           },
           username: 'true',
