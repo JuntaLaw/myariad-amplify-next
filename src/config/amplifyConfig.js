@@ -12,8 +12,8 @@ const amplifyConfig = {
         oauth: {
           domain: process.env.NEXT_PUBLIC_OAUTH_DOMAIN,
           scopes: ['openid', 'email', 'phone', 'profile', 'aws.cognito.signin.user.admin'],
-          redirectSignIn: process.env.NEXT_PUBLIC_REDIRECT_SIGN_IN.split(','),
-          redirectSignOut: process.env.NEXT_PUBLIC_REDIRECT_SIGN_OUT.split(','),
+          redirectSignIn: ['http://localhost:3000/', 'https://main.d1endqjhx9pbv7.amplifyapp.com'],
+          redirectSignOut:['http://localhost:3000/', 'https://main.d1endqjhx9pbv7.amplifyapp.com'],
           responseType: 'code',
           },
           username: 'true',
