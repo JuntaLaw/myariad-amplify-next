@@ -7,11 +7,11 @@ const amplifyConfig = {
       userPoolId: 'us-east-1_FrgJ7Dy89',
       region: 'us-east-1',
       loginWith: {
-        Auth: {
+        oauth: {
           domain: 'https://myariad.auth.us-east-1.amazoncognito.com',
           scopes: ['openid', 'email', 'phone', 'profile', 'aws.cognito.signin.user.admin'],
-          redirectSignIn: ['http://localhost:3000/', 'https://main.d7flzcqnvsanz.amplifyapp.com/'],
-          redirectSignOut:['http://localhost:3000/', 'https://main.d7flzcqnvsanz.amplifyapp.com/'],
+          redirectSignIn: ['http://localhost:3000/', 'https://main.d1endqjhx9pbv7.amplifyapp.com/'],
+          redirectSignOut:['http://localhost:3000/', 'https://main.d1endqjhx9pbv7.amplifyapp.com/'],
           responseType: 'code',
           },
           username: 'true',
