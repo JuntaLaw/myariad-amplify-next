@@ -5,10 +5,10 @@ import ReactFlow, { addEdge, removeEdge } from 'reactflow';
 import { v4 as uuidv4 } from 'uuid';
 import 'reactflow/dist/style.css';
 
-import NoteNavBar from '../../../../components/navi/NoteNavBar';
-import useNotebookStore from '../../../../store/notebookStore';
-import useCardNoteStore from '../../../../store/cardNoteStore';
-import CardNote from '../../../../components/ui/Card/CardNote';
+import NoteNavBar from '../../../components/navi/NoteNavBar';
+import useNotebookStore from '../../../store/notebookStore';
+import useCardNoteStore from '../../../store/cardNoteStore';
+import CardNote from '../../../components/ui/Card/CardNote';
 
 export default function NotePage({ params }) {
     const { notebookId } = params;
@@ -50,7 +50,7 @@ export default function NotePage({ params }) {
         cardNote: (props) => (
         <CardNote
             {...props}
-            onEditClick={(cardNoteId) => router.push(`/home/notepage/${notebookId}/edit/${cardNoteId}`)}
+            onEditClick={(cardNoteId) => router.push(`/notepage/${notebookId}/edit/${cardNoteId}`)}
         />
         ),
     }), [router, notebookId]);
