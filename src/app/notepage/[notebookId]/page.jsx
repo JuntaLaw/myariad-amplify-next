@@ -50,7 +50,7 @@ export default function NotePage({ params }) {
         cardNote: (props) => (
         <CardNote
             {...props}
-            onEditClick={(cardNoteId) => router.push(`/home/notepage/${notebookId}/edit/${cardNoteId}`)}
+            onEditClick={(cardNoteId) => router.push(`/notepage/${notebookId}/edit/${cardNoteId}`)}
         />
         ),
     }), [router, notebookId]);

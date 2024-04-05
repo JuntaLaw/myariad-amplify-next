@@ -18,7 +18,7 @@ export default function EditCardNotePage({ params }) {
   const handleSave = () => {
     updateCardNoteTitle(cardNoteId, title);
     updateCardNoteContent(cardNoteId, content);
-    router.push(`/home/notepage/${notebookId}`);
+    router.push(`/notepage/${notebookId}`);
   };
 
   return (
