@@ -1,4 +1,3 @@
-
 [data-amplify-authenticator] {
     --amplify-components-authenticator-router-box-shadow: 0 0 16px var(--amplify-colors-overlay-10);
     --amplify-components-authenticator-router-border-width: 0;
@@ -44,7 +43,7 @@
   }
 
   .sign-out-button {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
   }
