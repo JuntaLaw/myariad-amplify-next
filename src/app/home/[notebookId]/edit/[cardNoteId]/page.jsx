@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import useCardNoteStore from '../../../../../../store/cardNoteStore'; 
+import useCardNoteStore from '../../../../../store/cardNoteStore'; 
 import './editpage.css';
 
 export default function EditCardNotePage({ params }) {
@@ -42,7 +42,7 @@ export default function EditCardNotePage({ params }) {
           Save
         </button>
         <button
-          onClick={() => router.push(`/home/notepage/${notebookId}`)}
+          onClick={() => router.push(`/notepage/${notebookId}`)}
           className="btn btn-ghost ml-4"
         >
           Cancel
