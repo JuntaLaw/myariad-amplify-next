@@ -1,7 +1,7 @@
 "use client";
 import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import ReactFlow, { addEdge, removeEdge } from 'reactflow';
+import ReactFlow, { addEdge, removeEdge, Controls } from 'reactflow';
 import { v4 as uuidv4 } from 'uuid';
 import 'reactflow/dist/style.css';
 
@@ -116,7 +116,9 @@ export default function NotePage({ params }) {
             onNodeDragStop={onNodeDragStop}
             // onEdgeDoubleClick={onEdgeDoubleClick} // この行を追加
             fitView
-            />
+            >
+                    <Controls />
+        </ReactFlow>
         </div>
         </main>
     );
