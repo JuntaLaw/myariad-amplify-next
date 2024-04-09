@@ -79,15 +79,7 @@ const useCardNoteStore = create(
           type: 'cardNote',
         }));
         setNodes(newNodes);
-      },
-
-      // addEdge: (edge) => {
-      //   set((state) => ({ edges: [...state.edges, edge] }));
-      // },
-      // removeEdge: (edgeId) => {
-      //   set((state) => ({ edges: state.edges.filter((edge) => edge.id !== edgeId) }));
-      // }, 
-
+      }, 
 
     }),
     {
