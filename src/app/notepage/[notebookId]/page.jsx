@@ -14,16 +14,24 @@ export default function NotePage({ params }) {
     const { notebookId } = params;
     const router = useRouter();
     const notebook = useNotebookStore((state) => state.notebooks.find((notebook) => notebook.id === notebookId));
-    const cardNotes = useCardNoteStore((state) => state.cardNotes.filter((cardNote) => cardNote.notebookId === notebookId));
+    const cardNotes = useCardNoteStore((state) => state.cardNotes);
+    const fetchNotes = useCardNoteStore((state) => state.fetchNotes);
     const createCardNote = useCardNoteStore((state) => state.createCardNote);
-    const updateCardNotePosition = useCardNoteStore((state) => state.updateCardNotePosition); 
-    
-    const nodes = cardNotes.map((cardNote) => ({
+    const updateCardNotePosition = useCardNoteStore((state) => state.updateCardNotePosition);
+
+    useEffect(() => {
+    fetchNotes(notebookId);
+    }, [fetchNotes, notebookId]);
+
+    const nodes = cardNotes
+    .filter((cardNote) => cardNote.notebookId === notebookId)
+    .map((cardNote) => ({
         id: cardNote.id,
         position: cardNote.position || { x: 0, y: 0 },
         data: { cardNote },
         type: 'cardNote',
-    })); 
+    }));
+
 
     const nodeTypes = React.useMemo(() => ({
         cardNote: (props) => (

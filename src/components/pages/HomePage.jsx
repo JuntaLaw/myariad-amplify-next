@@ -5,21 +5,15 @@ import NotebookHome from "../../components/ui/NotePage/NotebookHome";
 import Notebook from "../../components/ui/Card/Notebook";
 import useNotebookStore from '../../store/notebookStore';
 
+
 export default function Home() {
     const notebooks = useNotebookStore(state => state.notebooks);
     const createNotebook = useNotebookStore(state => state.createNotebook);
-    const setNotebooks = useNotebookStore(state => state.setNotebooks);
+    const fetchNotebooks = useNotebookStore(state => state.fetchNotebooks);
 
     useEffect(() => {
-        const storedNotebooks = JSON.parse(localStorage.getItem('notebook-storage'));
-        if (storedNotebooks && storedNotebooks.state && storedNotebooks.state.notebooks) {
-        const updatedNotebooks = storedNotebooks.state.notebooks.map(notebook => ({
-            ...notebook,
-            component: undefined,
-        }));
-        setNotebooks(updatedNotebooks);
-        }
-    }, []);
+        fetchNotebooks();
+    }, [fetchNotebooks]);
 
     return (
         <main className="flex min-h-screen w-screen flex-col">
