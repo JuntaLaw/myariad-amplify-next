@@ -13,12 +13,14 @@ const useCardNoteStore = create(
       
       createCardNote: (notebookId) => {
         const cardNoteId = uuidv4();
+        const lastCardNote = get().cardNotes.slice(-1)[0];
+        const newPosition = lastCardNote ? { x: lastCardNote.position.x + 100, y: lastCardNote.position.y + 100 } : { x: 0, y: 0 };
         const newCardNote = {
           id: cardNoteId,
           notebookId,
           title: '',
           content: '',
-          position: { x: 0, y: 0 }, // 初期位置を設定
+          position: newPosition, // 新しい位置を設定
         };
         set((state) => ({
           cardNotes: [...state.cardNotes, newCardNote],
@@ -26,7 +28,7 @@ const useCardNoteStore = create(
             ...state.nodes,
             {
               id: cardNoteId,
-              position: { x: 0, y: 0 },
+              position: newPosition,
               data: { cardNote: newCardNote },
               type: 'cardNote',
             },
@@ -79,12 +81,12 @@ const useCardNoteStore = create(
         setNodes(newNodes);
       },
 
-      addEdge: (edge) => {
-        set((state) => ({ edges: [...state.edges, edge] }));
-      },
-      removeEdge: (edgeId) => {
-        set((state) => ({ edges: state.edges.filter((edge) => edge.id !== edgeId) }));
-      }, 
+      // addEdge: (edge) => {
+      //   set((state) => ({ edges: [...state.edges, edge] }));
+      // },
+      // removeEdge: (edgeId) => {
+      //   set((state) => ({ edges: state.edges.filter((edge) => edge.id !== edgeId) }));
+      // }, 
 
 
     }),

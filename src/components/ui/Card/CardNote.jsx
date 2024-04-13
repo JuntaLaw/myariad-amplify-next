@@ -12,8 +12,8 @@ export default function CardNote({ id, data, onEditClick }) {
   if (!cardNote) return null;
 
   return (
-    <div className="card bg-white shadow-md w-64 mx-2 my-2 h-auto"> {/* ここを変更 */}
-      <Handle type="target" position={Position.Top} />
+    <div className="card bg-white shadow-md w-64 mx-2 my-2 h-auto"> 
+      {/* <Handle type="target" position={Position.Top} /> */}
       <div className="card-body p-2">
         <div className="card-title flex justify-between items-center ml-2 w-full">
           <div className="font-bold flex-grow">{cardNote.title || 'Enter New title'}</div>
@@ -26,9 +26,9 @@ export default function CardNote({ id, data, onEditClick }) {
             </button>
           </div>
         </div>
-        <p className="text-sm text-gray-600 mb-2">{cardNote.content}</p> {/* この行を追加 */}
+        <p className="text-sm text-gray-600 pl-2 mb-2">{cardNote.content}</p> 
       </div>
-      <Handle type="source" position={Position.Bottom} />
+      {/* <Handle type="source" position={Position.Bottom} /> */}
     </div>
   );
 }
