@@ -1,7 +1,10 @@
-// src/graphql/API.js
+// src/graphql/API.js 
 import { API, graphqlOperation } from '@aws-amplify/api-graphql'; 
+import { generateClient } from 'aws-amplify/api';
 import * as queries from './queries';
 import * as mutations from './mutations'; 
+
+const client = generateClient();
 
 export const fetchNotebooks = async () => {
   try {
