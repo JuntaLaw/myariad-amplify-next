@@ -1,8 +1,13 @@
 // src/app/layout.js
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
+
 import "./globals.css"; 
 import React from 'react'; 
+import { Amplify } from 'aws-amplify';
+import awsconfig from '../aws-exports';
+
+Amplify.configure(awsconfig);
 
 export const metadata = {
   title: "Miyariad Notebook",

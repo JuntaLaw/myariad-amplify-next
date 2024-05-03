@@ -1,4 +1,3 @@
-// src/app/page.js
 "use client";
 import React from 'react'; 
 
@@ -6,9 +5,6 @@ import { WithAuthenticatorProps } from '@aws-amplify/ui-react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import ConfigureAmplifyClientSide from '@/config/ConfigureAmplify'; 
-
-
-
 import  HomePage from '@/components/pages/HomePage';
 
 import { CustomAuthenticator } from "../ui-components/authenticator.override"; 

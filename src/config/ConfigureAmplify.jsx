@@ -1,7 +1,7 @@
 import { Amplify, API } from "aws-amplify"; 
-import config from "../amplifyconfiguration.json"; 
+import awsconfig from '../aws-exports';
 
-Amplify.configure(config, { ssr: true }); 
+Amplify.configure(awsconfig, { ssr: true }); 
 
 export default function ConfigureAmplifyClientSide() {
   return null;
