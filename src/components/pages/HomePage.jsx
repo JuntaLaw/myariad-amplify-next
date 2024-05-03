@@ -23,8 +23,7 @@ export default function Home() {
 
     const fetchNotebooks = async () => {
     try { 
-        const { data } = await client.graphql({ query: listNotebooks });
-
+        const { data } = await client.graphql({ query: listNotebooks }); 
         setNotebooks(data.listNotebooks.items);
     } catch (error) {
         console.error('Error fetching notebooks:', error);
@@ -32,32 +31,36 @@ export default function Home() {
     }
     };
 
-    const handleCreateNotebook = async (title) => {
-    const newNotebook = {
-        title: title,
-    };
-    await client.graphql({
-        query: createNotebook,
-        variables: { input: newNotebook },
-    });
-    fetchNotebooks();
-    };
-
-    const handleDeleteNotebook = async (notebookId) => {
-        await client.graphql({
-            query: deleteNotebook,
-            variables: { input: { id: notebookId } }, 
-        });
-        fetchNotebooks();
-    };
+    const handleCreateNotebook = async () => {
+        const newNotebook = {
+            title: "",
+            };
+            try {
+                const { data } = await client.graphql({
+                query: createNotebook,
+                variables: { input: newNotebook },
+            });
+            setNotebooks([...notebooks, data.createNotebook]);
+            } catch (error) {
+            console.error('Error creating notebook:', error);
+            // エラーハンドリングの処理を追加する
+            }
+        };
+        const handleDeleteNotebook = (notebookId) => {
+            setNotebooks(notebooks.filter(notebook => notebook.id !== notebookId)); 
+        };
 
     return (
     <main className="flex min-h-screen w-screen flex-col">
         <div className="app"> 
-        <NavigationBar onCreateNotebook={(title) => handleCreateNotebook(title)} />
+        <NavigationBar onCreateNotebook={handleCreateNotebook} />
         <NotebookHome>
             {notebooks.map(notebook => (
-            <Notebook key={notebook.id} id={notebook.id} />
+            <Notebook 
+            key={notebook.id} 
+            notebook={notebook}
+            onDeleteNotebook={handleDeleteNotebook} 
+            />
             ))}
         </NotebookHome>
         </div>

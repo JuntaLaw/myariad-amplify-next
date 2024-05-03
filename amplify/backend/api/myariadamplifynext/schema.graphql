@@ -15,7 +15,7 @@ type NoteCard @model @auth(rules: [{allow: owner}]) {
 
 type Notebook @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  title: String! 
+  title: String
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   NoteCards: [NoteCard] @hasMany(indexName: "byNotebook", fields: ["id"])
