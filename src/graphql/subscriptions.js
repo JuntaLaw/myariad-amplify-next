@@ -13,7 +13,7 @@ export const onCreateNoteCard = /* GraphQL */ `
       notebookID
       createdAt
       updatdAt
-      order
+      position
       updatedAt
       owner
       __typename
@@ -32,7 +32,7 @@ export const onUpdateNoteCard = /* GraphQL */ `
       notebookID
       createdAt
       updatdAt
-      order
+      position
       updatedAt
       owner
       __typename
@@ -51,7 +51,7 @@ export const onDeleteNoteCard = /* GraphQL */ `
       notebookID
       createdAt
       updatdAt
-      order
+      position
       updatedAt
       owner
       __typename
