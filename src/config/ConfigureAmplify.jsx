@@ -1,4 +1,4 @@
-import { Amplify } from "aws-amplify";
+import { API, Amplify } from "aws-amplify";
 import config from "../amplifyconfiguration.json";
 
 Amplify.configure(config, { ssr: true });

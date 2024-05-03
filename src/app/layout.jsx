@@ -1,5 +1,6 @@
 // src/app/layout.js
 import { Inter } from "next/font/google";
+import ConfigureAmplifyClientSide from '@/config/ConfigureAmplify'
 const inter = Inter({ subsets: ["latin"] });
 import "./globals.css"; 
 import React from 'react'; 
@@ -9,7 +10,7 @@ export const metadata = {
   description: "Miyariad Notebook",
 }; 
 
-export default function Layout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="ja">
     <body> 

@@ -1,4 +1,9 @@
-type NoteCard @model @auth(rules: [{allow: public}]) {
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+
+type NoteCard @model @auth(rules: [{allow: owner}]) {
   id: ID!
   title: String
   content: String
@@ -8,10 +13,9 @@ type NoteCard @model @auth(rules: [{allow: public}]) {
   order: Int
 }
 
-type Notebook @model @auth(rules: [{allow: public}]) {
+type Notebook @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  title: String!
-  userId: String!
+  title: String! 
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime
   NoteCards: [NoteCard] @hasMany(indexName: "byNotebook", fields: ["id"])

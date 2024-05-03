@@ -1,8 +1,15 @@
 "use client";
+import { Amplify } from "aws-amplify"; 
+import config from "../../amplifyconfiguration.json";
+
+Amplify.configure(config, { ssr: true });
+
+
 import React, { useRef } from 'react';
 import { PiX } from "react-icons/pi"; 
-import OpenButton from '../Button/OpenButton';
-import useNotebookStore from '../../../store/notebookStore';
+import OpenButton from '../Button/OpenButton'; 
+
+const client = generateClient();
 
 export default function Notebook({ id }) {
     // notebookStoreから必要な関数を取得

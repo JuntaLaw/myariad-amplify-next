@@ -1,36 +1,66 @@
 "use client";
-import { useEffect } from 'react';
+import { Amplify } from "aws-amplify"; 
+import config from "../../amplifyconfiguration.json";
+
+Amplify.configure(config, { ssr: true });
+
+import { useEffect, useState } from 'react';
+import { generateClient } from 'aws-amplify/api'; 
 import NavigationBar from "../../components/navi/NavigationBar";
 import NotebookHome from "../../components/ui/NotePage/NotebookHome";
 import Notebook from "../../components/ui/Card/Notebook";
-import useNotebookStore from '../../store/notebookStore';
+import { listNotebooks } from '../../graphql/queries';
+import { createNotebook } from '../../graphql/mutations';
 
-export default function Home() {
-    const notebooks = useNotebookStore(state => state.notebooks);
-    const createNotebook = useNotebookStore(state => state.createNotebook);
-    const setNotebooks = useNotebookStore(state => state.setNotebooks);
+const client = generateClient();
+
+export default function Home() { 
+    const [notebooks, setNotebooks] = useState([]);
 
     useEffect(() => {
-        const storedNotebooks = JSON.parse(localStorage.getItem('notebook-storage'));
-        if (storedNotebooks && storedNotebooks.state && storedNotebooks.state.notebooks) {
-        const updatedNotebooks = storedNotebooks.state.notebooks.map(notebook => ({
-            ...notebook,
-            component: undefined,
-        }));
-        setNotebooks(updatedNotebooks);
-        }
+    fetchNotebooks();
     }, []);
 
+    const fetchNotebooks = async () => {
+    try { 
+        const { data } = await client.graphql({ query: listNotebooks });
+
+        setNotebooks(data.listNotebooks.items);
+    } catch (error) {
+        console.error('Error fetching notebooks:', error);
+      // エラーハンドリングの処理を追加する
+    }
+    };
+
+    const handleCreateNotebook = async (title) => {
+    const newNotebook = {
+        title: title,
+    };
+    await client.graphql({
+        query: createNotebook,
+        variables: { input: newNotebook },
+    });
+    fetchNotebooks();
+    };
+
+    const handleDeleteNotebook = async (notebookId) => {
+        await client.graphql({
+            query: deleteNotebook,
+            variables: { input: { id: notebookId } }, 
+        });
+        fetchNotebooks();
+    };
+
     return (
-        <main className="flex min-h-screen w-screen flex-col">
-        <div className="app">
-            <NavigationBar onCreateNotebook={createNotebook} />
-            <NotebookHome>
+    <main className="flex min-h-screen w-screen flex-col">
+        <div className="app"> 
+        <NavigationBar onCreateNotebook={(title) => handleCreateNotebook(title)} />
+        <NotebookHome>
             {notebooks.map(notebook => (
-                <Notebook key={notebook.id} id={notebook.id} />
+            <Notebook key={notebook.id} id={notebook.id} />
             ))}
-            </NotebookHome>
+        </NotebookHome>
         </div>
-        </main>
+    </main>
     );
 }

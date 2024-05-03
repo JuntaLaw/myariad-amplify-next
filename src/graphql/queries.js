@@ -12,6 +12,7 @@ export const getNoteCard = /* GraphQL */ `
       updatdAt
       order
       updatedAt
+      owner
       __typename
     }
   }
@@ -32,6 +33,43 @@ export const listNoteCards = /* GraphQL */ `
         updatdAt
         order
         updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getNotebook = /* GraphQL */ `
+  query GetNotebook($id: ID!) {
+    getNotebook(id: $id) {
+      id
+      title
+      createdAt
+      updatedAt
+      NoteCards {
+        nextToken
+        __typename
+      }
+      owner
+      __typename
+    }
+  }
+`;
+export const listNotebooks = /* GraphQL */ `
+  query ListNotebooks(
+    $filter: ModelNotebookFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNotebooks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        createdAt
+        updatedAt
+        owner
         __typename
       }
       nextToken
@@ -63,42 +101,7 @@ export const noteCardsByNotebookID = /* GraphQL */ `
         updatdAt
         order
         updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getNotebook = /* GraphQL */ `
-  query GetNotebook($id: ID!) {
-    getNotebook(id: $id) {
-      id
-      title
-      userId
-      createdAt
-      updatedAt
-      NoteCards {
-        nextToken
-        __typename
-      }
-      __typename
-    }
-  }
-`;
-export const listNotebooks = /* GraphQL */ `
-  query ListNotebooks(
-    $filter: ModelNotebookFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listNotebooks(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        title
-        userId
-        createdAt
-        updatedAt
+        owner
         __typename
       }
       nextToken

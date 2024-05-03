@@ -15,6 +15,7 @@ export const createNoteCard = /* GraphQL */ `
       updatdAt
       order
       updatedAt
+      owner
       __typename
     }
   }
@@ -33,6 +34,7 @@ export const updateNoteCard = /* GraphQL */ `
       updatdAt
       order
       updatedAt
+      owner
       __typename
     }
   }
@@ -51,6 +53,7 @@ export const deleteNoteCard = /* GraphQL */ `
       updatdAt
       order
       updatedAt
+      owner
       __typename
     }
   }
@@ -63,13 +66,13 @@ export const createNotebook = /* GraphQL */ `
     createNotebook(input: $input, condition: $condition) {
       id
       title
-      userId
       createdAt
       updatedAt
       NoteCards {
         nextToken
         __typename
       }
+      owner
       __typename
     }
   }
@@ -82,13 +85,13 @@ export const updateNotebook = /* GraphQL */ `
     updateNotebook(input: $input, condition: $condition) {
       id
       title
-      userId
       createdAt
       updatedAt
       NoteCards {
         nextToken
         __typename
       }
+      owner
       __typename
     }
   }
@@ -101,13 +104,13 @@ export const deleteNotebook = /* GraphQL */ `
     deleteNotebook(input: $input, condition: $condition) {
       id
       title
-      userId
       createdAt
       updatedAt
       NoteCards {
         nextToken
         __typename
       }
+      owner
       __typename
     }
   }
