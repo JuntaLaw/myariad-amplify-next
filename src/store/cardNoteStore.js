@@ -1,89 +1,48 @@
-// src/store/cardNoteStore.js
-import { create } from 'zustand'; 
-// import { fetchNotes, createNote, updateNote, deleteNote } from '../graphql/API';
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { fetchNotebooks, createNotebook, updateNotebook, deleteNotebook } from '../graphql/API';
+import { v4 as uuidv4 } from 'uuid'; 
 
-
-const useCardNoteStore = create((set, get) => ({
-  cardNotes: [],
-  expandedCardNoteIds: [],
-  nodes: [],
-  edges: [], 
-  
-      fetchNotes: async (notebookId) => {
-        const notes = await fetchNotes(notebookId);
-        set({ cardNotes: notes });
-      },
-
-      createCardNote: async (notebookId, title, content, position) => {
-        const newNote = await createNote(notebookId, title, content, position);
-        set((state) => ({
-          cardNotes: [...state.cardNotes, newNote],
-          nodes: [
-            ...state.nodes,
-            {
-              id: newNote.id,
-              position: newNote.position,
-              data: { cardNote: newNote },
-              type: 'cardNote',
+const useNotebookStore = create(
+        persist(
+        (set, get) => ({
+            // ノートブックの配列を初期化
+            notebooks: [],
+    
+            // 新しいノートブックを作成する関数
+            createNotebook: () => {
+            const notebookId = uuidv4();
+            const newNotebook = {
+                id: notebookId,
+                title: '',
+            };
+            set(state => ({ notebooks: [...state.notebooks, newNotebook] }));
             },
-          ],
-        }));
-      },
+    
+            // ノートブックを削除する関数
+            deleteNotebook: (id) => {
+            set(state => ({ notebooks: state.notebooks.filter(notebook => notebook.id !== id) }));
+            },
+    
+            // ノートブックのタイトルを更新する関数
+            updateNotebookTitle: (id, title) => {
+            set(state => ({
+                notebooks: state.notebooks.map(notebook =>
+                notebook.id === id ? { ...notebook, title } : notebook
+                ),
+            }));
+            },
+    
+            // ノートブックの配列を設定する関数
+            setNotebooks: (notebooks) => {
+            set({ notebooks });
+            },
+        }),
+        {
+            name: 'notebook-storage',
+            storage: createJSONStorage(() => localStorage),
+        }
+        )
+    );
 
-      updateCardNoteTitle: async (id, title) => {
-        await updateNote(id, { title });
-        set((state) => ({
-          cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, title } : cardNote)),
-        }));
-      },
-
-      updateCardNoteContent: async (id, content) => {
-        await updateNote(id, { content });
-        set((state) => ({
-          cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, content } : cardNote)),
-        }));
-      },
-
-      deleteCardNote: async (id) => {
-        await deleteNote(id);
-        set((state) => ({ cardNotes: state.cardNotes.filter((cardNote) => cardNote.id !== id) }));
-      },
-
-      updateCardNotePosition: async (id, position) => {
-        await updateNote(id, { position });
-        set((state) => ({
-          cardNotes: state.cardNotes.map((cardNote) =>
-            cardNote.id === id ? { ...cardNote, position: position || { x: 0, y: 0 } } : cardNote
-          ),
-          nodes: state.nodes.map((node) =>
-            node.id === id ? { ...node, position: position || { x: 0, y: 0 } } : node
-          ),
-        }));
-      },
-      
-      // 新しい関数を追加
-      toggleCardNoteExpanded: (cardNoteId) => {
-        set((state) => ({
-          expandedCardNoteIds: state.expandedCardNoteIds.includes(cardNoteId)
-            ? state.expandedCardNoteIds.filter((id) => id !== cardNoteId)
-            : [...state.expandedCardNoteIds, cardNoteId],
-        }));
-      },
-
-      // 新しい関数を追加
-      setNodes: (setNodes) => {
-        const cardNotes = get().cardNotes;
-        const newNodes = cardNotes.map((cardNote) => ({
-          id: cardNote.id,
-          position: cardNote.position || { x: 0, y: 0 },
-          data: { cardNote },
-          type: 'cardNote',
-        }));
-        setNodes(newNodes);
-      }, 
-
-    }),
-
-  )
-
-export default useCardNoteStore;
+export default useNotebookStore;
