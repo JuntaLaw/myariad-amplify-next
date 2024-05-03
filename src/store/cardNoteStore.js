@@ -1,6 +1,6 @@
 // src/store/cardNoteStore.js
 import { create } from 'zustand'; 
-import { fetchNotes, createNote, updateNote, deleteNote } from '../graphql/API';
+// import { fetchNotes, createNote, updateNote, deleteNote } from '../graphql/API';
 
 
 const useCardNoteStore = create((set, get) => ({
