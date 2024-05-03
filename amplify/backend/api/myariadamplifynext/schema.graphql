@@ -1,0 +1,18 @@
+type NoteCard @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String
+  content: String
+  notebookID: ID! @index(name: "byNotebook")
+  createdAt: AWSDateTime!
+  updatdAt: AWSDateTime
+  order: Int
+}
+
+type Notebook @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String!
+  userId: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime
+  NoteCards: [NoteCard] @hasMany(indexName: "byNotebook", fields: ["id"])
+}
