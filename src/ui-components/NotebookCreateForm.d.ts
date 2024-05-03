@@ -21,38 +21,34 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type UserUpdateFormInputValues = {
-    username?: string;
-    email?: string;
-    password?: string;
+export declare type NotebookCreateFormInputValues = {
+    title?: string;
+    userId?: string;
     createdAt?: string;
     updatedAt?: string;
 };
-export declare type UserUpdateFormValidationValues = {
-    username?: ValidationFunction<string>;
-    email?: ValidationFunction<string>;
-    password?: ValidationFunction<string>;
+export declare type NotebookCreateFormValidationValues = {
+    title?: ValidationFunction<string>;
+    userId?: ValidationFunction<string>;
     createdAt?: ValidationFunction<string>;
     updatedAt?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type UserUpdateFormOverridesProps = {
-    UserUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    username?: PrimitiveOverrideProps<TextFieldProps>;
-    email?: PrimitiveOverrideProps<TextFieldProps>;
-    password?: PrimitiveOverrideProps<TextFieldProps>;
+export declare type NotebookCreateFormOverridesProps = {
+    NotebookCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    title?: PrimitiveOverrideProps<TextFieldProps>;
+    userId?: PrimitiveOverrideProps<TextFieldProps>;
     createdAt?: PrimitiveOverrideProps<TextFieldProps>;
     updatedAt?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type UserUpdateFormProps = React.PropsWithChildren<{
-    overrides?: UserUpdateFormOverridesProps | undefined | null;
+export declare type NotebookCreateFormProps = React.PropsWithChildren<{
+    overrides?: NotebookCreateFormOverridesProps | undefined | null;
 } & {
-    id?: string;
-    user?: any;
-    onSubmit?: (fields: UserUpdateFormInputValues) => UserUpdateFormInputValues;
-    onSuccess?: (fields: UserUpdateFormInputValues) => void;
-    onError?: (fields: UserUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: UserUpdateFormInputValues) => UserUpdateFormInputValues;
-    onValidate?: UserUpdateFormValidationValues;
+    clearOnSuccess?: boolean;
+    onSubmit?: (fields: NotebookCreateFormInputValues) => NotebookCreateFormInputValues;
+    onSuccess?: (fields: NotebookCreateFormInputValues) => void;
+    onError?: (fields: NotebookCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: NotebookCreateFormInputValues) => NotebookCreateFormInputValues;
+    onValidate?: NotebookCreateFormValidationValues;
 } & React.CSSProperties>;
-export default function UserUpdateForm(props: UserUpdateFormProps): React.ReactElement;
+export default function NotebookCreateForm(props: NotebookCreateFormProps): React.ReactElement;

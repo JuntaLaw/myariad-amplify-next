@@ -9,13 +9,11 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { getUser } from "../graphql/queries";
-import { updateUser } from "../graphql/mutations";
+import { createNotebook } from "../graphql/mutations";
 const client = generateClient();
-export default function UserUpdateForm(props) {
+export default function NotebookCreateForm(props) {
   const {
-    id: idProp,
-    user: userModelProp,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -25,51 +23,28 @@ export default function UserUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    username: "",
-    email: "",
-    password: "",
+    title: "",
+    userId: "",
     createdAt: "",
     updatedAt: "",
   };
-  const [username, setUsername] = React.useState(initialValues.username);
-  const [email, setEmail] = React.useState(initialValues.email);
-  const [password, setPassword] = React.useState(initialValues.password);
+  const [title, setTitle] = React.useState(initialValues.title);
+  const [userId, setUserId] = React.useState(initialValues.userId);
   const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
   const [updatedAt, setUpdatedAt] = React.useState(initialValues.updatedAt);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = userRecord
-      ? { ...initialValues, ...userRecord }
-      : initialValues;
-    setUsername(cleanValues.username);
-    setEmail(cleanValues.email);
-    setPassword(cleanValues.password);
-    setCreatedAt(cleanValues.createdAt);
-    setUpdatedAt(cleanValues.updatedAt);
+    setTitle(initialValues.title);
+    setUserId(initialValues.userId);
+    setCreatedAt(initialValues.createdAt);
+    setUpdatedAt(initialValues.updatedAt);
     setErrors({});
   };
-  const [userRecord, setUserRecord] = React.useState(userModelProp);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = idProp
-        ? (
-            await client.graphql({
-              query: getUser.replaceAll("__typename", ""),
-              variables: { id: idProp },
-            })
-          )?.data?.getUser
-        : userModelProp;
-      setUserRecord(record);
-    };
-    queryData();
-  }, [idProp, userModelProp]);
-  React.useEffect(resetStateValues, [userRecord]);
   const validations = {
-    username: [{ type: "Required" }],
-    email: [{ type: "Required" }],
-    password: [{ type: "Required" }],
+    title: [{ type: "Required" }],
+    userId: [{ type: "Required" }],
     createdAt: [{ type: "Required" }],
-    updatedAt: [{ type: "Required" }],
+    updatedAt: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -114,9 +89,8 @@ export default function UserUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          username,
-          email,
-          password,
+          title,
+          userId,
           createdAt,
           updatedAt,
         };
@@ -149,16 +123,18 @@ export default function UserUpdateForm(props) {
             }
           });
           await client.graphql({
-            query: updateUser.replaceAll("__typename", ""),
+            query: createNotebook.replaceAll("__typename", ""),
             variables: {
               input: {
-                id: userRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -167,92 +143,62 @@ export default function UserUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UserUpdateForm")}
+      {...getOverrideProps(overrides, "NotebookCreateForm")}
       {...rest}
     >
       <TextField
-        label="Username"
+        label="Title"
         isRequired={true}
         isReadOnly={false}
-        value={username}
+        value={title}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              username: value,
-              email,
-              password,
+              title: value,
+              userId,
               createdAt,
               updatedAt,
             };
             const result = onChange(modelFields);
-            value = result?.username ?? value;
+            value = result?.title ?? value;
           }
-          if (errors.username?.hasError) {
-            runValidationTasks("username", value);
+          if (errors.title?.hasError) {
+            runValidationTasks("title", value);
           }
-          setUsername(value);
+          setTitle(value);
         }}
-        onBlur={() => runValidationTasks("username", username)}
-        errorMessage={errors.username?.errorMessage}
-        hasError={errors.username?.hasError}
-        {...getOverrideProps(overrides, "username")}
+        onBlur={() => runValidationTasks("title", title)}
+        errorMessage={errors.title?.errorMessage}
+        hasError={errors.title?.hasError}
+        {...getOverrideProps(overrides, "title")}
       ></TextField>
       <TextField
-        label="Email"
+        label="User id"
         isRequired={true}
         isReadOnly={false}
-        value={email}
+        value={userId}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              username,
-              email: value,
-              password,
+              title,
+              userId: value,
               createdAt,
               updatedAt,
             };
             const result = onChange(modelFields);
-            value = result?.email ?? value;
+            value = result?.userId ?? value;
           }
-          if (errors.email?.hasError) {
-            runValidationTasks("email", value);
+          if (errors.userId?.hasError) {
+            runValidationTasks("userId", value);
           }
-          setEmail(value);
+          setUserId(value);
         }}
-        onBlur={() => runValidationTasks("email", email)}
-        errorMessage={errors.email?.errorMessage}
-        hasError={errors.email?.hasError}
-        {...getOverrideProps(overrides, "email")}
-      ></TextField>
-      <TextField
-        label="Password"
-        isRequired={true}
-        isReadOnly={false}
-        value={password}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              username,
-              email,
-              password: value,
-              createdAt,
-              updatedAt,
-            };
-            const result = onChange(modelFields);
-            value = result?.password ?? value;
-          }
-          if (errors.password?.hasError) {
-            runValidationTasks("password", value);
-          }
-          setPassword(value);
-        }}
-        onBlur={() => runValidationTasks("password", password)}
-        errorMessage={errors.password?.errorMessage}
-        hasError={errors.password?.hasError}
-        {...getOverrideProps(overrides, "password")}
+        onBlur={() => runValidationTasks("userId", userId)}
+        errorMessage={errors.userId?.errorMessage}
+        hasError={errors.userId?.hasError}
+        {...getOverrideProps(overrides, "userId")}
       ></TextField>
       <TextField
         label="Created at"
@@ -265,9 +211,8 @@ export default function UserUpdateForm(props) {
             e.target.value === "" ? "" : new Date(e.target.value).toISOString();
           if (onChange) {
             const modelFields = {
-              username,
-              email,
-              password,
+              title,
+              userId,
               createdAt: value,
               updatedAt,
             };
@@ -286,7 +231,7 @@ export default function UserUpdateForm(props) {
       ></TextField>
       <TextField
         label="Updated at"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         type="datetime-local"
         value={updatedAt && convertToLocal(new Date(updatedAt))}
@@ -295,9 +240,8 @@ export default function UserUpdateForm(props) {
             e.target.value === "" ? "" : new Date(e.target.value).toISOString();
           if (onChange) {
             const modelFields = {
-              username,
-              email,
-              password,
+              title,
+              userId,
               createdAt,
               updatedAt: value,
             };
@@ -319,14 +263,13 @@ export default function UserUpdateForm(props) {
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || userModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -336,10 +279,7 @@ export default function UserUpdateForm(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={
-              !(idProp || userModelProp) ||
-              Object.values(errors).some((e) => e?.hasError)
-            }
+            isDisabled={Object.values(errors).some((e) => e?.hasError)}
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

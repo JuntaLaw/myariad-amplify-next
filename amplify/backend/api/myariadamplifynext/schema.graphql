@@ -1,64 +1,18 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
-type User @model @auth(rules: [{ allow: owner, ownerField: "id", operations: [read, create, update, delete] }]) {
+type NoteCard @model @auth(rules: [{allow: public}]) {
   id: ID!
-  username: String!
-  email: String!
-  password: String!
-  notebooks: [Notebook] @hasMany
+  title: String
+  content: String
+  notebookID: ID! @index(name: "byNotebook")
   createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  updatdAt: AWSDateTime
+  order: Int
 }
 
-type Notebook @model @auth(rules: [{ allow: owner, ownerField: "owner", operations: [read, create, update, delete] }]) {
+type Notebook @model @auth(rules: [{allow: public}]) {
   id: ID!
   title: String!
-  owner: User! @belongsTo
-  notes: [Note] @hasMany
-  notebookOutputs: [NotebookOutput] @hasMany
+  userId: String!
   createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-}
-
-type Note @model @auth(rules: [{ allow: owner, ownerField: "notebook", operations: [read, create, update, delete] }]) {
-  id: ID!
-  title: String!
-  content: String!
-  notebook: Notebook! @belongsTo
-  sourceConnections: [NoteConnection] @hasMany(fields: ["id"])
-  targetConnections: [NoteConnection] @hasMany(fields: ["id"])
-  generatedImage: GeneratedImage @hasOne
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-}
-
-type NoteConnection @model @auth(rules: [{ allow: owner, ownerField: "sourceNote", operations: [read, create, update, delete] }]) {
-  id: ID!
-  sourceNote: Note! @belongsTo
-  targetNote: Note! @belongsTo
-  order: Int!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-}
-
-type NotebookOutput @model @auth(rules: [{ allow: owner, ownerField: "notebook", operations: [read, create, update, delete] }]) {
-  id: ID!
-  title: String!
-  notebook: Notebook! @belongsTo
-  content: String!
-  pdfUrl: String
-  generatedImages: [GeneratedImage] @hasMany
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-}
-
-type GeneratedImage @model @auth(rules: [{ allow: owner, ownerField: "notebookOutput", operations: [read, create, update, delete] }]) {
-  id: ID!
-  notebookOutput: NotebookOutput! @belongsTo
-  note: Note! @belongsTo
-  imageUrl: String!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  updatedAt: AWSDateTime
+  NoteCards: [NoteCard] @hasMany(indexName: "byNotebook", fields: ["id"])
 }
