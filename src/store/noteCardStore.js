@@ -1,21 +1,21 @@
-// src/store/cardNoteStore.js
+// src/store/NoteCardStore.js
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware'; 
 
-const useCardNoteStore = create(
+const useNoteCardStore = create(
   persist(
     (set, get) => ({ 
-      expandedCardNoteIds: [], // 新しい状態を追加
+      expandedNoteCardIds: [], // 新しい状態を追加 
       nodes: [], // 新しい状態
       edges: [], // エッジの状態を追加 
       
-      createCardNote: (notebookId, cardNoteId) => {
+      createNoteCard: (notebookId, NoteCardId) => {
         const lastNode = get().nodes.slice(-1)[0];
         const newPosition = lastNode ? { x: lastNode.position.x + 100, y: lastNode.position.y + 100 } : { x: 0, y: 0 };
         const newNode = {
-          id: cardNoteId,
+          id: NoteCardId,
           position: newPosition,
-          data: { noteCard: { id: cardNoteId, notebookId, title: '', content: '' } },
+          data: { noteCard: { id: NoteCardId, notebookId, title: '', content: '' } },
           type: 'noteCard',
         };
         set((state) => ({
@@ -25,7 +25,7 @@ const useCardNoteStore = create(
       }, 
 
 
-      updateCardNotePosition: (id, position) => {
+      updateNoteCardPosition: (id, position) => {
         set((state) => ({
           nodes: state.nodes.map((node) =>
             node.id === id ? { ...node, position: position || { x: 0, y: 0 } } : node
@@ -33,14 +33,14 @@ const useCardNoteStore = create(
         }));
       },
 
-      toggleCardNoteExpanded: (cardNoteId) => {
+      toggleNoteCardExpanded: (NoteCardId) => {
         set((state) => ({
-          expandedCardNoteIds: state.expandedCardNoteIds.includes(cardNoteId)
-            ? state.expandedCardNoteIds.filter((id) => id !== cardNoteId)
-            : [...state.expandedCardNoteIds, cardNoteId],
+          expandedNoteCardIds: state.expandedNoteCardIds.includes(NoteCardId)
+            ? state.expandedNoteCardIds.filter((id) => id !== NoteCardId)
+            : [...state.expandedNoteCardIds, NoteCardId],
         }));
       },
-      
+
       setNodes: (nodes) => {
         set({ nodes });
       },
@@ -54,10 +54,10 @@ const useCardNoteStore = create(
       },
     }),
     {
-      name: 'cardNote-storage',
+      name: 'NoteCard-storage',
       storage: createJSONStorage(() => localStorage),
     }
   )
 );
 
-export default useCardNoteStore;
+export default useNoteCardStore;

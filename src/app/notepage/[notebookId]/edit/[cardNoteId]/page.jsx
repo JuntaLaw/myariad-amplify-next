@@ -1,28 +1,65 @@
 "use client";
-import React, { useState } from 'react';
+import { Amplify } from "aws-amplify"; 
+import config from "../../../../../amplifyconfiguration.json";
+
+Amplify.configure(config, { ssr: true });
+
+import { generateClient } from 'aws-amplify/api'; 
+import React, { useState, useEffect } from 'react'; 
 import { useRouter } from 'next/navigation';
-import useCardNoteStore from '../../../../../store/cardNoteStore'; 
+import { getNoteCard } from '../../../../../graphql/queries';
+import { updateNoteCard } from '../../../../../graphql/mutations'; 
 import './editpage.css';
+
+const client = generateClient();
 
 export default function EditCardNotePage({ params }) {
   const { notebookId, cardNoteId } = params;
   const router = useRouter();
-  const cardNote = useCardNoteStore((state) =>
-    state.cardNotes.find((note) => note.id === cardNoteId)
-  );
-  const updateCardNoteTitle = useCardNoteStore((state) => state.updateCardNoteTitle);
-  const updateCardNoteContent = useCardNoteStore((state) => state.updateCardNoteContent);
-  const [title, setTitle] = useState(cardNote?.title || '');
-  const [content, setContent] = useState(cardNote?.content || '');
+  const [noteCard, setNoteCard] = useState(null);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-  const handleSave = () => {
-    updateCardNoteTitle(cardNoteId, title);
-    updateCardNoteContent(cardNoteId, content);
-    router.push(`/notepage/${notebookId}`);
+  useEffect(() => {
+    fetchNoteCard();
+  }, []);
+
+  const fetchNoteCard = async () => {
+    try {
+      const { data } = await client.graphql({
+        query: getNoteCard,
+        variables: { id: cardNoteId },
+      });
+      setNoteCard(data.getNoteCard);
+      setTitle(data.getNoteCard.title);
+      setContent(data.getNoteCard.content);
+    } catch (error) {
+      console.error('Error fetching NoteCard:', error);
+    }
   };
 
+  const handleSave = async () => {
+    try {
+      await client.graphql({
+        query: updateNoteCard,
+        variables: {
+          input: {
+            id: cardNoteId,
+            title,
+            content,
+          },
+        },
+      });
+      router.push(`/notepage/${notebookId}`);
+    } catch (error) {
+      console.error('Error updating NoteCard:', error);
+    }
+  };
+
+  if (!noteCard) return <div>Loading...</div>;
+
   return (
-    <div className="container mx-auto my-8  edit-note-page">
+    <div className="container mx-auto my-8 edit-note-page">
       <h1 className="text-2xl font-bold mb-4">Edit Note</h1>
       <input
         type="text"

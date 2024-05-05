@@ -12,10 +12,10 @@ import { PiX, PiPencil } from 'react-icons/pi';
 
 const client = generateClient();
 
-export default function CardNote({ id, data, onEditClick, onDeleteNoteCard }) {
-  const cardNote = data.cardNote; 
+export default function NoteCard({ id, data, onEditClick, onDeleteNoteCard }) {
+  const noteCard = data.noteCard; 
 
-  if (!cardNote) return null;
+  if (!noteCard) return null;
 
   const handleDeleteNoteCard = async () => {
     try {
@@ -27,14 +27,13 @@ export default function CardNote({ id, data, onEditClick, onDeleteNoteCard }) {
     } catch (error) {
         console.error('Error deleting NoteCard:', error);
     }
-};
+  };
 
   return (
     <div className="card bg-white shadow-md w-64 mx-2 my-2 h-auto"> 
-      {/* <Handle type="target" position={Position.Top} /> */}
       <div className="card-body p-2">
         <div className="card-title flex justify-between items-center ml-2 w-full">
-          <div className="font-bold flex-grow">{noteCard.title || 'Enter New title'}</div>
+          <div className="font-bold flex-grow">{noteCard.title || 'to edit, Click Pencil'}</div>
           <div className="card-actions flex flex-row items-center">
             <button onClick={() => onEditClick(noteCard.id)} className="btn btn-ghost btn-sm">
               <PiPencil size={16} />
