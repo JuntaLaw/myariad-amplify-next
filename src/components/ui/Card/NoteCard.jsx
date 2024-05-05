@@ -1,3 +1,4 @@
+
 "use client";
 import { Amplify } from "aws-amplify"; 
 import config from "../../../amplifyconfiguration.json";
@@ -5,10 +6,10 @@ import config from "../../../amplifyconfiguration.json";
 Amplify.configure(config, { ssr: true });
 
 import { generateClient } from 'aws-amplify/api'; 
-import React from 'react';
-import { Handle, Position } from 'reactflow';
+import React from 'react'; 
 import { updateNoteCard, deleteNoteCard } from '../../../graphql/mutations';
 import { PiX, PiPencil } from 'react-icons/pi'; 
+import { Handle, Position } from 'reactflow';
 
 const client = generateClient();
 

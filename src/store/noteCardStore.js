@@ -9,7 +9,7 @@ const useNoteCardStore = create(
       nodes: [], // 新しい状態
       edges: [], // エッジの状態を追加 
       
-      createNoteCard: (notebookId, NoteCardId) => {
+      createNoteCardPosition: (notebookId, NoteCardId) => {
         const lastNode = get().nodes.slice(-1)[0];
         const newPosition = lastNode ? { x: lastNode.position.x + 100, y: lastNode.position.y + 100 } : { x: 0, y: 0 };
         const newNode = {
