@@ -7,10 +7,8 @@ type NoteCard @model @auth(rules: [{allow: owner}]) {
   id: ID!
   title: String
   content: String
-  notebookID: ID! @index(name: "byNotebook")
-  createdAt: AWSDateTime!
-  updatdAt: AWSDateTime 
-  position: AWSJSON
+  notebookID: ID! @index(name: "byNotebook") 
+  nextCardID: ID
 }
 
 type Notebook @model @auth(rules: [{allow: owner}]) {

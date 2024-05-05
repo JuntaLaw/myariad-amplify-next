@@ -8,9 +8,8 @@ export const getNoteCard = /* GraphQL */ `
       title
       content
       notebookID
+      nextCardID
       createdAt
-      updatdAt
-      position
       updatedAt
       owner
       __typename
@@ -29,9 +28,8 @@ export const listNoteCards = /* GraphQL */ `
         title
         content
         notebookID
+        nextCardID
         createdAt
-        updatdAt
-        position
         updatedAt
         owner
         __typename
@@ -97,9 +95,8 @@ export const noteCardsByNotebookID = /* GraphQL */ `
         title
         content
         notebookID
+        nextCardID
         createdAt
-        updatdAt
-        position
         updatedAt
         owner
         __typename
