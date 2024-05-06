@@ -1,4 +1,3 @@
- //src/app/notepage/[notebookId]/page.jsx
 "use client";
 import { Amplify } from "aws-amplify"; 
 import config from "../../../amplifyconfiguration.json";
@@ -7,12 +6,13 @@ Amplify.configure(config, { ssr: true });
 
 import { generateClient } from 'aws-amplify/api'; 
 
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
-import { useRouter } from 'next/navigation'; 
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import NoteNavBar from '../../../components/navi/NoteNavBar'; 
-import NoteCard from '../../../components/ui/Card/NoteCard'; 
+import NoteCard from '../../../components/ui/Card/NoteCard';
 import { getNotebook, listNoteCards } from '../../../graphql/queries';
-import { createNoteCard, deleteNoteCard } from '../../../graphql/mutations'; 
+import { createNoteCard } from '../../../graphql/mutations';
 
 const client = generateClient(); 
 
@@ -67,18 +67,6 @@ export default function NotePage({ params }) {
             console.error('Error creating NoteCard:', error);
         }
     };
-
-    const handleDeleteNoteCard = async (noteCardId) => {
-        try {
-            await client.graphql({
-                query: deleteNoteCard,
-                variables: { input: { id: noteCardId } },
-            });
-            setNoteCards(noteCards.filter(noteCard => noteCard.id !== noteCardId));
-            } catch (error) {
-            console.error('Error deleting NoteCard:', error);
-            }
-        }; 
 
     return (
         <main className="min-h-screen w-screen">

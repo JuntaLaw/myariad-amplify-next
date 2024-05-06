@@ -5,6 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 import "./globals.css"; 
 import React from 'react'; 
 
+
 export const metadata = {
   title: "Miyariad Notebook",
   description: "Miyariad Notebook",

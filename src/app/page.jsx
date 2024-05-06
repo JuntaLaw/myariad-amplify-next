@@ -12,14 +12,18 @@ import  HomePage from '@/components/pages/HomePage';
 import { CustomAuthenticator } from "../ui-components/authenticator.override"; 
 
 export function App({ signOut, user }) {
-  return (
+  return ( 
+   
     <main>
       <div className='flex'> 
       <ConfigureAmplifyClientSide /> 
+   
       <HomePage />
       <button className="btn btn-ghost glass m-4" onClick={signOut}>Sign out</button> 
+
       </div>
-    </main>
+    </main> 
+
   );
 }
 
