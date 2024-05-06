@@ -1,32 +1,63 @@
 // src/store/NoteCardStore.js
+
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware'; 
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { fetchNotes, createNote, updateNote, deleteNote } from '../graphql/API';
 
-const useNoteCardStore = create(
+const useCardNoteStore = create(
   persist(
-    (set, get) => ({ 
-      expandedNoteCardIds: [], // 新しい状態を追加 
-      nodes: [], // 新しい状態
-      edges: [], // エッジの状態を追加 
-      
-      createNoteCardPosition: (notebookId, NoteCardId) => {
-        const lastNode = get().nodes.slice(-1)[0];
-        const newPosition = lastNode ? { x: lastNode.position.x + 100, y: lastNode.position.y + 100 } : { x: 0, y: 0 };
-        const newNode = {
-          id: NoteCardId,
-          position: newPosition,
-          data: { noteCard: { id: NoteCardId, notebookId, title: '', content: '' } },
-          type: 'noteCard',
-        };
+    (set, get) => ({
+      cardNotes: [],
+      expandedCardNoteIds: [],
+      nodes: [],
+      edges: [],
+
+      fetchNotes: async (notebookId) => {
+        const notes = await fetchNotes(notebookId);
+        set({ cardNotes: notes });
+      },
+
+      createCardNote: async (notebookId, title, content, position) => {
+        const newNote = await createNote(notebookId, title, content, position);
         set((state) => ({
-          nodes: [...state.nodes, newNode],
+          cardNotes: [...state.cardNotes, newNote],
+          nodes: [
+            ...state.nodes,
+            {
+              id: newNote.id,
+              position: newNote.position,
+              data: { cardNote: newNote },
+              type: 'cardNote',
+            },
+          ],
         }));
-        return newNode;
-      }, 
+      },
 
-
-      updateNoteCardPosition: (id, position) => {
+      updateCardNoteTitle: async (id, title) => {
+        await updateNote(id, { title });
         set((state) => ({
+          cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, title } : cardNote)),
+        }));
+      },
+
+      updateCardNoteContent: async (id, content) => {
+        await updateNote(id, { content });
+        set((state) => ({
+          cardNotes: state.cardNotes.map((cardNote) => (cardNote.id === id ? { ...cardNote, content } : cardNote)),
+        }));
+      },
+
+      deleteCardNote: async (id) => {
+        await deleteNote(id);
+        set((state) => ({ cardNotes: state.cardNotes.filter((cardNote) => cardNote.id !== id) }));
+      },
+
+      updateCardNotePosition: async (id, position) => {
+        await updateNote(id, { position });
+        set((state) => ({
+          cardNotes: state.cardNotes.map((cardNote) =>
+            cardNote.id === id ? { ...cardNote, position: position || { x: 0, y: 0 } } : cardNote
+          ),
           nodes: state.nodes.map((node) =>
             node.id === id ? { ...node, position: position || { x: 0, y: 0 } } : node
           ),
