@@ -1,10 +1,7 @@
 //src/components/ui/Card/NoteCard.jsx 
 "use client"; 
-
-import { generateClient } from 'aws-amplify/api'; 
 import React from 'react'; 
 import { PiX, PiPencil } from 'react-icons/pi'; 
-import { Handle, Position } from 'reactflow'; 
 
 export default function NoteCard({ id, data, onEditClick, onDeleteNoteCard, draggable = true }) {
   const noteCard = data.noteCard; 
