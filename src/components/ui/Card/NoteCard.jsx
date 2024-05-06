@@ -13,7 +13,7 @@ import { PiX, PiPencil } from 'react-icons/pi';
 
 const client = generateClient();
 
-export default function NoteCard({ id, data, onEditClick, onDeleteNoteCard }) {
+export default function NoteCard({ id, data, onEditClick, onDeleteNoteCard, isSaved }) {
   const noteCard = data.noteCard; 
 
   if (!noteCard) return null;
@@ -28,7 +28,7 @@ export default function NoteCard({ id, data, onEditClick, onDeleteNoteCard }) {
     } catch (error) {
         console.error('Error deleting NoteCard:', error);
     }
-  };
+  }; 
 
   return (
     <div className="card bg-white shadow-md w-64 mx-2 my-2 h-auto"> 
@@ -46,6 +46,7 @@ export default function NoteCard({ id, data, onEditClick, onDeleteNoteCard }) {
         </div>
         <p className="text-sm text-gray-600 pl-2 mb-2">{noteCard.content}</p> 
       </div> 
+     <button className="btn glass">generate image</button>
     </div>
   );
 }

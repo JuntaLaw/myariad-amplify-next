@@ -18,7 +18,7 @@ export default function EditCardNotePage({ params }) {
   const router = useRouter();
   const [noteCard, setNoteCard] = useState(null);
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(''); 
 
   useEffect(() => {
     fetchNoteCard();
@@ -50,7 +50,7 @@ export default function EditCardNotePage({ params }) {
           },
         },
       });
-      router.push(`/notepage/${notebookId}`);
+      router.push(`/notepage/${notebookId}`); 
     } catch (error) {
       console.error('Error updating NoteCard:', error);
     }
@@ -80,11 +80,12 @@ export default function EditCardNotePage({ params }) {
         </button>
         <button
           onClick={() => router.push(`/notepage/${notebookId}`)}
-          className="btn btn-ghost ml-4"
+          className="btn btn-ghost ml-4 glass"
         >
           Cancel
-        </button>
+        </button> 
       </div>
+      <button className="btn btn-secondary mt-4">generate image</button>
     </div>
   );
 }
